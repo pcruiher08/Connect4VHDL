@@ -80,16 +80,21 @@ signal indices: std_logic_vector(3 downto 0);
 
 begin
 --cuadricula
- limiteIzquierda <= "0011011100"; --220
- limiteDerecha  <=  "1001011000"; --600
- limiteSuperior <=  "0001111000"; --120
- limiteInferior <=  "0111110100"; --500
- limiteLineaA   <=  "0011010111"; --120+(500-120)/4
- limiteLineaB   <=  "0100110110"; --120+2*(500-120)/4
- limiteLineaC   <=  "0110010101"; --120+3*(500-120)/4
- limiteLinea1   <=  "0100111011"; --220+(600-220)/4
- limiteLinea2   <=  "0110011010"; --220+2*(600-220)/4
- limiteLinea3   <=  "0111111001"; --220+3*(600-220)/4
+ limiteIzquierda        <= "0011011100"; --220
+ limiteDerecha          <=  "1001011000"; --600
+ limiteSuperior         <=  "0001111000"; --120
+ limiteInferior         <=  "0111110100"; --500
+ limiteLineaA           <=  "0011010111"; --120+(500-120)/4
+ limiteLineaB           <=  "0100110110"; --120+2*(500-120)/4
+ limiteLineaC           <=  "0110010101"; --120+3*(500-120)/4
+ limiteLinea1           <=  "0100111011"; --220+(600-220)/4
+ limiteLinea2           <=  "0110011010"; --220+2*(600-220)/4
+ limiteLinea3           <=  "0111111001"; --220+3*(600-220)/4
+ limiteInferiorFlecha   <=  "0000111000"; --56
+ limiteSuperiorFlecha   <=  "0000000110"; --6
+ limiteIzquierdoFlecha  <=  "0000000000"; --0
+ limiteDerechoFlecha    <=  "0000000000"; --0
+
 
 clock50<= clk50_in;
 -- generate a 25Mhz clock
