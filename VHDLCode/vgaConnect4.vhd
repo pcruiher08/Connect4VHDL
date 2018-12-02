@@ -78,8 +78,8 @@ signal columna1General, columna2General, columna3General, columna4General: bit_v
 
 --indices
 signal limiteInferiorSelector, limiteSuperiorSelector, limiteIzquierdoSelector, limiteDerechoSelector: std_logic_vector(9 downto 0);
-type limitesDerSel is array (3 downto 0) of std_vector_vector(9 downto 0);
-type limitesIzqSel is array (3 downto 0) of std_vector_vector(9 downto 0);
+type limitesDerSel is array (0 to 3) of std_vector_vector(9 downto 0);
+type limitesIzqSel is array (0 to 3) of std_vector_vector(9 downto 0);
 signal limitesDerecha : limitesDerSel := ("0100100111","0110000110","0111100101","1001000100") --{295, 390, 485, 580}
 signal limitesIzquierda : limitesIzqSel := ("0011110000","0101001111","0110101110","1000001101"); --{240,335,430,525}
 signal indices: std_logic_vector(3 downto 0);
