@@ -117,72 +117,72 @@ process (clk25)
 begin
 if clk25'event and clk25 = '1' then
 if hs = limiteIzquierda and vs >= limiteSuperior and vs <= limiteInferior then ---linea izquierda
-red <= '0' ;
-blue <= '1';
-green <= '1';
+    red <= '0' ;
+    blue <= '1';
+    green <= '1';
 elsif hs = limiteDerecha and vs >= limiteSuperior and vs <= limiteInferior then--linea derecha
-red <= '0';
-blue <= '1'; 
-green <= '1';
+    red <= '0';
+    blue <= '1';
+    green <= '1';
 elsif hs <= limiteDerecha and hs>= limiteIzquierda and vs = limiteSuperior then -- linea arriba / 120
-red <= '0'; 
-blue<='1';
-green <='1';
+    red <= '0';
+    blue <= '1';
+    green <= '1';
 elsif hs <= limiteDerecha and hs>= limiteIzquierda and vs = limiteInferior then -- linea abajo / 511
-red <= '0'; 
-blue<='1';
-green <='1';
+    red <= '0';
+    blue <= '1';
+    green <= '1';
 elsif hs <= limiteDerecha and hs>= limiteIzquierda and vs = limiteLineaA then -- linea A 
-red <= '0'; 
-blue<='1';
-green <='1';
+    red <= '0';
+    blue <= '1';
+    green <= '1';
 elsif hs <= limiteDerecha and hs>= limiteIzquierda and vs = limiteLineaB then -- linea B
-red <= '0'; 
-blue<='1';
-green <='1';
+    red <= '0';
+    blue <= '1';
+    green <= '1';
 elsif hs <= limiteDerecha and hs>= limiteIzquierda and vs = limiteLineaC then -- linea B
-red <= '0'; 
-blue<='1';
-green <='1';
+    red <= '0';
+    blue <= '1';
+    green <='1';
 elsif hs = limiteLinea1 and vs >= limiteSuperior and vs <= limiteInferior then--linea derecha
-red <= '0';
-blue <= '1'; 
-green <= '1';
+    red <= '0';
+    blue <= '1';
+    green <= '1';
 elsif hs = limiteLinea2 and vs >= limiteSuperior and vs <= limiteInferior then--linea derecha
-red <= '0';
-blue <= '1'; 
-green <= '1';
+    red <= '0';
+    blue <= '1';
+    green <= '1';
 elsif hs = limiteLinea3 and vs >= limiteSuperior and vs <= limiteInferior then--linea derecha
-red <= '0';
-blue <= '1'; 
-green <= '1';
+    red <= '0';
+    blue <= '1';
+    green <= '1';
 --------------------------------------------------------------------------------
 else                     ----------blank signal display
-red <= '0' ;
-blue <= '0';
-green <= '0' ;
+    red <= '0' ;
+    blue <= '0';
+    green <= '0' ;
 end if;
-if (hs > "0000000000" )
-and (hs < "0001100001" ) -- 96+1   -----horizontal tracing
-then
-hs_out <= '0';
-else
-hs_out <= '1';
-end if;
-if (vs > "0000000000" )
-and (vs < "0000000011" ) -- 2+1   ------vertical tracing
-then
-vs_out <= '0';
-else
-vs_out <= '1';
-end if;
-hs <= hs + "0000000001" ;
-if (hs= "1100100000") then     ----incremental of horizontal line
-vs <= vs + "0000000001";       ----incremental of vertical line
-hs <= "0000000000";
-end if;
-if (vs= "1000001001") then                 
-vs <= "0000000000";
+    if (hs > "0000000000" )
+    and (hs < "0001100001" ) -- 96+1   -----horizontal tracing
+    then
+    hs_out <= '0';
+    else
+    hs_out <= '1';
+    end if;
+    if (vs > "0000000000" )
+    and (vs < "0000000011" ) -- 2+1   ------vertical tracing
+    then
+    vs_out <= '0';
+    else
+    vs_out <= '1';
+    end if;
+    hs <= hs + "0000000001" ;
+    if (hs= "1100100000") then     ----incremental of horizontal line
+    vs <= vs + "0000000001";       ----incremental of vertical line
+    hs <= "0000000000";
+    end if;
+    if (vs= "1000001001") then                 
+    vs <= "0000000000";
 end if;
 end if;
 end process;
