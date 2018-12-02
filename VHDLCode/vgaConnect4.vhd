@@ -17,7 +17,9 @@ architecture Behavioral of VGA is
 signal clk25             : std_logic;
 signal hs : std_logic_vector (9 downto 0);
 signal vs : std_logic_vector (9 downto 0);
-signal limiteSuperior, limiteInferior, limiteIzquierda, limiteDerecha, limiteLineaA, limiteLineaB, limiteLineaC: std_logic_vector (9 downto 0);
+signal limiteSuperior, limiteInferior, limiteIzquierda, 
+limiteDerecha, limiteLineaA, limiteLineaB, limiteLineaC: std_logic_vector (9 downto 0);
+signal limiteLinea1, limiteLinea2, limiteLinea3: std_logic_vector(9 downto 9);
 begin
  limiteIzquierda <= "0011011100"; --220
  limiteDerecha <=   "1001011000"; --600
@@ -26,6 +28,9 @@ begin
  limiteLineaA <=    "0011010111"; --120+(500-120)/4
  limiteLineaB <=    "0100110110"; --120+2*(500-120)/4
  limiteLineaC <=    "0110010101"; --120+3*(500-120)/4
+ limiteLinea1 <=    "0100111011"; --220+(600-220)/4
+ limiteLinea2 <=     "0110011010"; --220+2*(600-220)/4
+ limiteLinea3 <=    "0111111001"; --220+3*(600-220)/4
  
 -- generate a 25Mhz clock
 process (clk50_in)
@@ -71,7 +76,18 @@ elsif hs <= limiteDerecha and hs>= limiteIzquierda and vs = limiteLineaC then --
 red <= '0'; 
 blue<='1';
 green <='0';
-
+elsif hs = limiteLinea1 and vs >= limiteSuperior and vs <= limiteInferior then--linea derecha
+red <= '0';
+blue <= '1'; 
+green <= '0';
+elsif hs = limiteLinea2 and vs >= limiteSuperior and vs <= limiteInferior then--linea derecha
+red <= '0';
+blue <= '1'; 
+green <= '0';
+elsif hs = limiteLinea3 and vs >= limiteSuperior and vs <= limiteInferior then--linea derecha
+red <= '0';
+blue <= '1'; 
+green <= '0';
 --------------------------------------------------------------------------------
 else                     ----------blank signal display
 red <= '0' ;
