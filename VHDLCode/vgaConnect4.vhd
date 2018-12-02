@@ -9,11 +9,11 @@ entity clk1Hz is
          );
     end clk1Hz;
     
-    architecture Behavioral of clk1Hz is
+    architecture comp of clk1Hz is
     
     signal count : integer :=1;
-    --signal clk : std_logic :='0';
-    
+    signal clock : std_logic :='0';
+    begin
     
      --clk generation.For 50 MHz clock this generates 1 Hz clock.
     process(clk1) 
@@ -21,12 +21,19 @@ entity clk1Hz is
     if rising_edge(clk1) then
     count <=count+1;
     if(count = 25000000) then
-    clk <= not clk;
-    count := 0;
+    clock <= not clock;
+    count <= 1;
     end if;
     end if;
+	 	 clk<= clock; 
     end process;
-end Behavioral;
+
+end comp;
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity VGA is
 port(clk50_in : in std_logic;         -----system clock i/p
@@ -38,12 +45,20 @@ port(clk50_in : in std_logic;         -----system clock i/p
 end VGA;
  
 architecture Behavioral of VGA is
+
+--components
+
+--component clk1Hz port(a: in std_logic; b: out std_logic); end component;
+component clk1Hz port (clk1 : in std_logic;
+           clk : out std_logic
+         );
+    end component;
  --vga
 signal clk25             : std_logic;
 signal hs : std_logic_vector (9 downto 0);
 signal vs : std_logic_vector (9 downto 0);
 --Signals del juego
-
+signal clock50: std_logic; 
 signal clk1Hert: std_logic;
 
 --limitesCuadricula
@@ -75,7 +90,8 @@ begin
  limiteLinea1   <=  "0100111011"; --220+(600-220)/4
  limiteLinea2   <=  "0110011010"; --220+2*(600-220)/4
  limiteLinea3   <=  "0111111001"; --220+3*(600-220)/4
- 
+
+clock50<= clk50_in;
 -- generate a 25Mhz clock
 process (clk50_in)
 begin
@@ -90,10 +106,7 @@ end if;
 end if;
 end process;
 
-process(clk50_in)
-begin
-    port map(clk50_in, clk1Hert);
-end process;
+
 
 process (clk25)
 begin
@@ -168,4 +181,5 @@ vs <= "0000000000";
 end if;
 end if;
 end process;
+ C1 : clk1Hz port map(clock50, clk1Hert);
 end Behavioral;
