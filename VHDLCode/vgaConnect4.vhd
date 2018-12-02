@@ -3,6 +3,31 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
  
+entity clk1Hz is
+    port (clk1 : in std_logic;
+           clk : out std_logic
+         );
+    end clk1Hz;
+    
+    architecture Behavioral of digi_clk is
+    
+    signal count : integer :=1;
+    signal clk : std_logic :='0';
+    
+    
+     --clk generation.For 50 MHz clock this generates 1 Hz clock.
+    process(clk1) 
+    begin
+    if(clk1'event and clk1='1') then
+    count <=count+1;
+    if(count = 25000000) then
+    clk <= not clk;
+    count <=1;
+    end if;
+    end if;
+    end process;
+end Behavioral;
+
 entity VGA is
 port(clk50_in : in std_logic;         -----system clock i/p
        red       : out std_logic;         -----primrary colour output
@@ -13,14 +38,33 @@ port(clk50_in : in std_logic;         -----system clock i/p
 end VGA;
  
 architecture Behavioral of VGA is
- 
+ --vga
 signal clk25             : std_logic;
 signal hs : std_logic_vector (9 downto 0);
 signal vs : std_logic_vector (9 downto 0);
+--Signals del juego
+
+signal clk1Hert: std_logic;
+
+--limitesCuadricula
 signal limiteSuperior, limiteInferior, limiteIzquierda, 
 limiteDerecha, limiteLineaA, limiteLineaB, limiteLineaC: std_logic_vector (9 downto 0);
 signal limiteLinea1, limiteLinea2, limiteLinea3: std_logic_vector(9 downto 0);
+
+--filas
+signal fila1Rojo, fila2Rojo, fila3Rojo, fila4Rojo: bit_vector(3 downto 0);
+signal fila1Amarillo, fila2Amarillo, fila3Amarillo, fila4Amarillo: bit_vector(3 downto 0);
+signal fila1General, fila2General, fila3General, fila4General: bit_vector(3 downto 0);
+
+--columnas
+signal columna1Rojo, columna2Rojo, columna3Rojo, columna4Rojo: bit_vector(3 downto 0);
+signal columna1Amarillo, columna2Amarillo, columna3Amarillo, columna4Amarillo: bit_vector(3 downto 0);
+signal columna1General, columna2General, columna3General, columna4General: bit_vector(3 downto 0);
+
+signal indices: std_logic_vector(3 downto 0);
+
 begin
+--cuadricula
  limiteIzquierda <= "0011011100"; --220
  limiteDerecha  <=  "1001011000"; --600
  limiteSuperior <=  "0001111000"; --120
@@ -35,6 +79,7 @@ begin
 -- generate a 25Mhz clock
 process (clk50_in)
 begin
+    --divisor de frecuencia 50 a 25
 if clk50_in'event and clk50_in='1' then
 if (clk25 = '0') then              
  
@@ -43,6 +88,11 @@ else
 clk25 <= '0';
 end if;
 end if;
+end process;
+
+process(clk50_in)
+begin
+    port_map(clk50_in, clk1Hert);
 end process;
 
 process (clk25)
