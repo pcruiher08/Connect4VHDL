@@ -51,43 +51,43 @@ if clk25'event and clk25 = '1' then
 if hs = limiteIzquierda and vs >= limiteSuperior and vs <= limiteInferior then ---linea izquierda
 red <= '0' ;
 blue <= '1';
-green <= '0';
+green <= '1';
 elsif hs = limiteDerecha and vs >= limiteSuperior and vs <= limiteInferior then--linea derecha
 red <= '0';
 blue <= '1'; 
-green <= '0';
+green <= '1';
 elsif hs <= limiteDerecha and hs>= limiteIzquierda and vs = limiteSuperior then -- linea arriba / 120
 red <= '0'; 
 blue<='1';
-green <='0';
+green <='1';
 elsif hs <= limiteDerecha and hs>= limiteIzquierda and vs = limiteInferior then -- linea abajo / 511
 red <= '0'; 
 blue<='1';
-green <='0';
+green <='1';
 elsif hs <= limiteDerecha and hs>= limiteIzquierda and vs = limiteLineaA then -- linea A 
 red <= '0'; 
 blue<='1';
-green <='0';
+green <='1';
 elsif hs <= limiteDerecha and hs>= limiteIzquierda and vs = limiteLineaB then -- linea B
 red <= '0'; 
 blue<='1';
-green <='0';
+green <='1';
 elsif hs <= limiteDerecha and hs>= limiteIzquierda and vs = limiteLineaC then -- linea B
 red <= '0'; 
 blue<='1';
-green <='0';
+green <='1';
 elsif hs = limiteLinea1 and vs >= limiteSuperior and vs <= limiteInferior then--linea derecha
 red <= '0';
 blue <= '1'; 
-green <= '0';
+green <= '1';
 elsif hs = limiteLinea2 and vs >= limiteSuperior and vs <= limiteInferior then--linea derecha
 red <= '0';
 blue <= '1'; 
-green <= '0';
+green <= '1';
 elsif hs = limiteLinea3 and vs >= limiteSuperior and vs <= limiteInferior then--linea derecha
 red <= '0';
 blue <= '1'; 
-green <= '0';
+green <= '1';
 --------------------------------------------------------------------------------
 else                     ----------blank signal display
 red <= '0' ;
