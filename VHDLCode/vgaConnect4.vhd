@@ -60,6 +60,7 @@ signal vs : std_logic_vector (9 downto 0);
 --Signals del juego
 signal clock50: std_logic; 
 signal clk1Hert: std_logic;
+signal count :integer := 1;
 
 --limitesCuadricula
 signal limiteSuperior, limiteInferior, limiteIzquierda, 
