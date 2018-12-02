@@ -4,3 +4,4 @@ NET "green"  LOC = "T12"  ;
 NET "hs_out"  LOC = "R9"  ;
 NET "red"  LOC = "R12"  ;
 NET "vs_out"  LOC = "T10"  ;
+NET "led"    LOC = "K12";

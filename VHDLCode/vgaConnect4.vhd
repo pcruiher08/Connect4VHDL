@@ -41,7 +41,8 @@ port(clk50_in : in std_logic;         -----system clock i/p
        green     : out std_logic;
        blue     : out std_logic;
        hs_out   : out std_logic;         ------horizontal control signal
-       vs_out   : out std_logic);         ------vertical   control signal
+       vs_out   : out std_logic;         ------vertical   control signal
+       led : out bit);
 end VGA;
  
 architecture Behavioral of VGA is
@@ -109,6 +110,12 @@ process (clk50_in)
 begin
     --divisor de frecuencia 50 a 25
 if clk50_in'event and clk50_in='1' then
+    count <=count+1;
+    if(count = 25000000) then
+        clk1Hert <= not clk1Hert;
+        count <= 1;
+    end if;
+
 if (clk25 = '0') then              
 clk25 <= '1';
 else
@@ -118,20 +125,10 @@ end if;
 end process;
 --clk1Hz port map(clock50, clk1Hert);
 
-process(clock50) 
-begin
-    if rising_edge(clock50) then
-    count <=count+1;
-    if(count = 25000000) then
-    clk1Hert <= not clk1Hert;
-    count <= 1;
-    end if;
-    end if;
-end process;
-
 process (clk1Hert)
 begin
     if(rising_edge(clk1Hert)) then
+        led <= not led; 
         if(limiteDerechoSelector = limitesDerecha(0)) then
             limiteDerechoSelector <= limitesDerecha(1);
             limiteIzquierdoSelector <= limitesIzquierda(1);
