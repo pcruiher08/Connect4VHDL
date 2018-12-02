@@ -19,13 +19,13 @@ signal hs : std_logic_vector (9 downto 0);
 signal vs : std_logic_vector (9 downto 0);
 signal limiteSuperior, limiteInferior, limiteIzquierda, limiteDerecha, limiteLineaA, limiteLineaB, limiteLineaC: std_logic_vector (9 downto 0);
 begin
- limiteIzquierda <= "0011001000";
- limiteDerecha <= "1001111110";
- limiteSuperior <= "0001111000";
- limiteInferior <= "0111001000";
- limiteLineaA <=   "0010001100";
- limiteLineaB <=   "0010100000";
- limiteLineaC <=   "0010110100";
+ limiteIzquierda <= "0011011100"; --220
+ limiteDerecha <=   "1001011000"; --600
+ limiteSuperior <=  "0001111000"; --120
+ limiteInferior <=  "0111110100"; --500
+ limiteLineaA <=    "0011010111"; --120+(500-120)/4
+ limiteLineaB <=    "0100110110"; --120+2*(500-120)/4
+ limiteLineaC <=    "0110010101"; --120+3*(500-120)/4
  
 -- generate a 25Mhz clock
 process (clk50_in)
