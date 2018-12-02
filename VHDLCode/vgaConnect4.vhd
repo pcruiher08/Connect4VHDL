@@ -36,17 +36,21 @@ use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity VGA is
-port(clk50_in : in std_logic;         -----system clock i/p
-       red       : out std_logic;         -----primrary colour output
-       green     : out std_logic;
-       blue     : out std_logic;
-       hs_out   : out std_logic;         ------horizontal control signal
-       vs_out   : out std_logic;         ------vertical   control signal
-		 botonIzq : in bit;
-		 botonDer : in bit;
-       led : out bit);
+port(clk50_in    : in std_logic;          -----system clock i/p
+        red      : out std_logic;         -----primrary colour output
+        green    : out std_logic;
+        blue     : out std_logic;
+        hs_out   : out std_logic;         ------horizontal control signal
+        vs_out   : out std_logic;         ------vertical   control signal
+		botonIzq : in bit;
+        botonDer : in bit;
+        ledCol1  : out bit;
+        ledCol2  : out bit; 
+        ledCol3  : out bit; 
+        ledCol4  : out bit;
+        led      : out bit);
 end VGA;
- 
+
 architecture Behavioral of VGA is
 
 --components
@@ -87,10 +91,11 @@ type limitesIzqSel is array (0 to 3) of std_logic_vector(9 downto 0);
 signal limitesDerecha : limitesDerSel := ("0100100111","0110000110","0111100101","1001000100"); --{295, 390, 485, 580}
 signal limitesIzquierda : limitesIzqSel := ("0011110000","0101001111","0110101110","1000001101"); --{240,335,430,525}
 signal indices: std_logic_vector(3 downto 0);
-signal ledsignal : bit;
+signal ledsignal : bit;--indicador de la frecuencia de 1hz
+signal columna: integer := 1;
 
 begin
---cuadricula
+--inicializacion de las variables de la cuadricula y los limites
  limiteIzquierda          <=  "0011011100"; --220
  limiteDerecha            <=  "1001011000"; --600
  limiteSuperior           <=  "0001111000"; --120
@@ -132,6 +137,10 @@ process (clk1Hert)
 begin
     if(rising_edge(clk1Hert)) then
         ledsignal <= not ledsignal; 
+            if(columna = 1) LedCol1<=1; end if;
+            if(columna = 2) ledCol2<=2; end if; 
+            if(columna = 3) ledCol3<=3; end if; 
+            if(columna = 4) ledCol4<=4; end if;
 		  if(botonDer = '1') then
 		  limitesDerecha(0)<=limitesDerecha(1);
 		  limitesDerecha(1)<=limitesDerecha(2);
@@ -140,7 +149,8 @@ begin
 		  limitesIzquierda(0)<=limitesIzquierda(1);
 		  limitesIzquierda(1)<=limitesIzquierda(2);
 		  limitesIzquierda(2)<=limitesIzquierda(3);
-		  limitesIzquierda(3)<=limitesIzquierda(0);
+          limitesIzquierda(3)<=limitesIzquierda(0);
+          columna <= (columna + 1) mod 4;
 		  end if; 
 		  if botonIzq = '1' then
 		  limitesDerecha(0)<=limitesDerecha(3);
@@ -150,21 +160,9 @@ begin
 		  limitesIzquierda(0)<=limitesIzquierda(3);
 		  limitesIzquierda(1)<=limitesIzquierda(0);
 		  limitesIzquierda(2)<=limitesIzquierda(1);
-		  limitesIzquierda(3)<=limitesIzquierda(2);
+          limitesIzquierda(3)<=limitesIzquierda(2);
+          columna <= (columna - 1) mod 4;
 		  end if; 
-        --if limiteDerechoSelector = limitesDerSel(0) then
-        --    limiteDerechoSelector <= "0110000110";
-        --    limiteIzquierdoSelector <= "0101001111";
-        --elsif limiteDerechoSelector = "0110000110" then
-        --    limiteDerechoSelector <= "0111100101"; 
-        --    limiteIzquierdoSelector <= "0110101110";
-        --elsif limiteDerechoSelector = "0111100101" then
-        --    limiteDerechoSelector <= "1001000100";
-        --    limiteIzquierdoSelector <= "1000001101";
-        --else
-        --    limiteDerechoSelector <= "0100100111";
-        --    limiteIzquierdoSelector <= "0011110000";
-        --end if; 
     end if; 
 end process; 
 
