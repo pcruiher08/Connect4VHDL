@@ -76,24 +76,30 @@ signal columna1Rojo, columna2Rojo, columna3Rojo, columna4Rojo: bit_vector(3 down
 signal columna1Amarillo, columna2Amarillo, columna3Amarillo, columna4Amarillo: bit_vector(3 downto 0);
 signal columna1General, columna2General, columna3General, columna4General: bit_vector(3 downto 0);
 
+--indices
+signal limiteInferiorSelector, limiteSuperiorSelector, limiteIzquierdoSelector, limiteDerechoSelector: std_logic_vector(9 downto 0);
+type limitesDerSel is array (3 downto 0) of std_vector_vector(9 downto 0);
+type limitesIzqSel is array (3 downto 0) of std_vector_vector(9 downto 0);
+signal limitesDerecha : limitesDerSel := ("0100100111","0110000110","0111100101","1001000100") --{295, 390, 485, 580}
+signal limitesIzquierda : limitesIzqSel := ("0011110000","0101001111","0110101110","1000001101"); --{240,335,430,525}
 signal indices: std_logic_vector(3 downto 0);
 
 begin
 --cuadricula
- limiteIzquierda        <= "0011011100"; --220
- limiteDerecha          <=  "1001011000"; --600
- limiteSuperior         <=  "0001111000"; --120
- limiteInferior         <=  "0111110100"; --500
- limiteLineaA           <=  "0011010111"; --120+(500-120)/4
- limiteLineaB           <=  "0100110110"; --120+2*(500-120)/4
- limiteLineaC           <=  "0110010101"; --120+3*(500-120)/4
- limiteLinea1           <=  "0100111011"; --220+(600-220)/4
- limiteLinea2           <=  "0110011010"; --220+2*(600-220)/4
- limiteLinea3           <=  "0111111001"; --220+3*(600-220)/4
- limiteInferiorFlecha   <=  "0000111000"; --56
- limiteSuperiorFlecha   <=  "0000000110"; --6
- limiteIzquierdoFlecha  <=  "0000000000"; --0
- limiteDerechoFlecha    <=  "0000000000"; --0
+ limiteIzquierda          <=  "0011011100"; --220
+ limiteDerecha            <=  "1001011000"; --600
+ limiteSuperior           <=  "0001111000"; --120
+ limiteInferior           <=  "0111110100"; --500
+ limiteLineaA             <=  "0011010111"; --120+(500-120)/4
+ limiteLineaB             <=  "0100110110"; --120+2*(500-120)/4
+ limiteLineaC             <=  "0110010101"; --120+3*(500-120)/4
+ limiteLinea1             <=  "0100111011"; --220+(600-220)/4
+ limiteLinea2             <=  "0110011010"; --220+2*(600-220)/4
+ limiteLinea3             <=  "0111111001"; --220+3*(600-220)/4
+ limiteInferiorSelector   <=  "0000110000"; --56
+ limiteSuperiorSelector   <=  "0001111101"; --6
+ limiteIzquierdoSelector  <=  "0011110000"; --0
+ limiteDerechoSelector    <=  "0100100111"; --0
 
 
 clock50<= clk50_in;
@@ -111,11 +117,27 @@ end if;
 end if;
 end process;
 
+process (clk1Hert)
+begin
+    if(rising_edge(clk1Hert))
+        if(limiteDerechoSelector = limitesDerercha(1)) then 
+            limiteDerechoSelector <= limitesDerecha(2);
+            limiteIzquierdoSelector <= limitesIzquierda(2);
+        elsif limiteDerechoSelector = limitesDerecha(2) then 
+            limiteDerechoSelector <= limitesDerecha(3); 
+            limiteIzquierdoSelector <= limitesIzquierda(3);
+        elsif limiteDerechoSelector = limitesDerecha(4) then 
+            limiteDerechoSelector <= limitesDerecha(1);
+            limiteIzquierdoSelector <= limitesIzquierda(4);
+        end if; 
+    end if; 
+end process; 
 
 
 process (clk25)
 begin
 if clk25'event and clk25 = '1' then
+    --TABLERO
 if hs = limiteIzquierda and vs >= limiteSuperior and vs <= limiteInferior then ---linea izquierda
     red <= '0' ;
     blue <= '1';
@@ -156,6 +178,10 @@ elsif hs = limiteLinea3 and vs >= limiteSuperior and vs <= limiteInferior then--
     red <= '0';
     blue <= '1';
     green <= '1';
+elsif hs <= limiteDerechoSelector and hs >= limiteIzquierdoSelector and vs <= limiteInferiorSelector and vs >= limiteSuperiorSelector then 
+    res <= '1'; 
+    blue <= '0'; 
+    green <= '0';
 --------------------------------------------------------------------------------
 else                     ----------blank signal display
     red <= '0' ;
