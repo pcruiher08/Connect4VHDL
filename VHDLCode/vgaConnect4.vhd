@@ -85,6 +85,7 @@ type limitesIzqSel is array (0 to 3) of std_logic_vector(9 downto 0);
 signal limitesDerecha : limitesDerSel := ("0100100111","0110000110","0111100101","1001000100"); --{295, 390, 485, 580}
 signal limitesIzquierda : limitesIzqSel := ("0011110000","0101001111","0110101110","1000001101"); --{240,335,430,525}
 signal indices: std_logic_vector(3 downto 0);
+signal ledsignal : bit;
 
 begin
 --cuadricula
@@ -124,23 +125,23 @@ end if;
 end if;
 end process;
 --clk1Hz port map(clock50, clk1Hert);
-
+led <= ledsignal;
 process (clk1Hert)
 begin
     if(rising_edge(clk1Hert)) then
-        led <= not led; 
-        if(limiteDerechoSelector = limitesDerecha(0)) then
-            limiteDerechoSelector <= limitesDerecha(1);
-            limiteIzquierdoSelector <= limitesIzquierda(1);
-        elsif limiteDerechoSelector = limitesDerecha(1) then
-            limiteDerechoSelector <= limitesDerecha(2); 
-            limiteIzquierdoSelector <= limitesIzquierda(2);
-        elsif limiteDerechoSelector = limitesDerecha(2) then
-            limiteDerechoSelector <= limitesDerecha(3);
-            limiteIzquierdoSelector <= limitesIzquierda(3);
+        ledsignal <= not ledsignal; 
+        if(limiteDerechoSelector = 0100100111) then
+            limiteDerechoSelector <= "0110000110";
+            limiteIzquierdoSelector <= "0101001111";
+        elsif limiteDerechoSelector = "0110000110" then
+            limiteDerechoSelector <= "0111100101"; 
+            limiteIzquierdoSelector <= "0110101110";
+        elsif limiteDerechoSelector = "0111100101" then
+            limiteDerechoSelector <= "1001000100";
+            limiteIzquierdoSelector <= "1000001101";
         else
-            limiteDerechoSelector <= limitesDerecha(1);
-            limiteIzquierdoSelector <= limitesIzquierda(1);
+            limiteDerechoSelector <= "0100100111";
+            limiteIzquierdoSelector <= "0011110000";
         end if; 
     end if; 
 end process; 
