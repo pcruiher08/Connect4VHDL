@@ -42,6 +42,8 @@ port(clk50_in : in std_logic;         -----system clock i/p
        blue     : out std_logic;
        hs_out   : out std_logic;         ------horizontal control signal
        vs_out   : out std_logic;         ------vertical   control signal
+		 botonIzq : in bit;
+		 botonDer : in bit;
        led : out bit);
 end VGA;
  
@@ -61,7 +63,7 @@ signal vs : std_logic_vector (9 downto 0);
 --Signals del juego
 signal clock50: std_logic; 
 signal clk1Hert: std_logic;
-signal count :integer := 1;
+signal count :integer := 1;--for 1Hz clock
 
 --limitesCuadricula
 signal limiteSuperior, limiteInferior, limiteIzquierda, 
@@ -112,7 +114,7 @@ begin
     --divisor de frecuencia 50 a 25
 if clk50_in'event and clk50_in='1' then
     count <=count+1;
-    if(count = 25000000) then
+    if(count = 10000000) then
         clk1Hert <= not clk1Hert;
         count <= 1;
     end if;
@@ -130,19 +132,39 @@ process (clk1Hert)
 begin
     if(rising_edge(clk1Hert)) then
         ledsignal <= not ledsignal; 
-        if(limiteDerechoSelector = 0100100111) then
-            limiteDerechoSelector <= "0110000110";
-            limiteIzquierdoSelector <= "0101001111";
-        elsif limiteDerechoSelector = "0110000110" then
-            limiteDerechoSelector <= "0111100101"; 
-            limiteIzquierdoSelector <= "0110101110";
-        elsif limiteDerechoSelector = "0111100101" then
-            limiteDerechoSelector <= "1001000100";
-            limiteIzquierdoSelector <= "1000001101";
-        else
-            limiteDerechoSelector <= "0100100111";
-            limiteIzquierdoSelector <= "0011110000";
-        end if; 
+		  if(botonDer = '1') then
+		  limitesDerecha(0)<=limitesDerecha(1);
+		  limitesDerecha(1)<=limitesDerecha(2);
+		  limitesDerecha(2)<=limitesDerecha(3);
+		  limitesDerecha(3)<=limitesDerecha(0);
+		  limitesIzquierda(0)<=limitesIzquierda(1);
+		  limitesIzquierda(1)<=limitesIzquierda(2);
+		  limitesIzquierda(2)<=limitesIzquierda(3);
+		  limitesIzquierda(3)<=limitesIzquierda(0);
+		  end if; 
+		  if botonIzq = '1' then
+		  limitesDerecha(0)<=limitesDerecha(3);
+		  limitesDerecha(1)<=limitesDerecha(0);
+		  limitesDerecha(2)<=limitesDerecha(1);
+		  limitesDerecha(3)<=limitesDerecha(2);
+		  limitesIzquierda(0)<=limitesIzquierda(3);
+		  limitesIzquierda(1)<=limitesIzquierda(0);
+		  limitesIzquierda(2)<=limitesIzquierda(1);
+		  limitesIzquierda(3)<=limitesIzquierda(2);
+		  end if; 
+        --if limiteDerechoSelector = limitesDerSel(0) then
+        --    limiteDerechoSelector <= "0110000110";
+        --    limiteIzquierdoSelector <= "0101001111";
+        --elsif limiteDerechoSelector = "0110000110" then
+        --    limiteDerechoSelector <= "0111100101"; 
+        --    limiteIzquierdoSelector <= "0110101110";
+        --elsif limiteDerechoSelector = "0111100101" then
+        --    limiteDerechoSelector <= "1001000100";
+        --    limiteIzquierdoSelector <= "1000001101";
+        --else
+        --    limiteDerechoSelector <= "0100100111";
+        --    limiteIzquierdoSelector <= "0011110000";
+        --end if; 
     end if; 
 end process; 
 
@@ -174,7 +196,7 @@ elsif hs <= limiteDerecha and hs>= limiteIzquierda and vs = limiteLineaB then --
     red <= '0';
     blue <= '1';
     green <= '1';
-elsif hs <= limiteDerecha and hs>= limiteIzquierda and vs = limiteLineaC then -- linea B
+elsif hs <= limiteDerecha and hs>= limiteIzquierda and vs = limiteLineaC then -- linea C
     red <= '0';
     blue <= '1';
     green <='1';
@@ -190,7 +212,7 @@ elsif hs = limiteLinea3 and vs >= limiteSuperior and vs <= limiteInferior then--
     red <= '0';
     blue <= '1';
     green <= '1';
-elsif hs <= limiteDerechoSelector and hs >= limiteIzquierdoSelector and vs <= limiteInferiorSelector and vs >= limiteSuperiorSelector then 
+elsif hs <= limitesDerecha(0) and hs >= limitesIzquierda(0) and vs = limiteSuperiorSelector then 
     red <= '1'; 
     blue <= '0'; 
     green <= '0';

@@ -5,3 +5,5 @@ NET "hs_out"  LOC = "R9"  ;
 NET "red"  LOC = "R12"  ;
 NET "vs_out"  LOC = "T10"  ;
 NET "led"    LOC = "l12";
+net "botonizq" loc = "m14";
+net "botonder" loc ="m13";
