@@ -214,8 +214,10 @@ elsif hs = limiteLinea3 and vs >= limiteSuperior and vs <= limiteInferior then--
     green <= '1';
 elsif hs <= limitesDerecha(0) and hs >= limitesIzquierda(0) and vs = limiteSuperiorSelector then 
     red <= '1'; 
-    blue <= '0'; 
-    green <= '0';
+    blue <= '1'; 
+    green <= '1';
+elsif hs <= limiteLinea1 and hs >= limiteIzquierda and vs <= limiteInferior and vs >= limiteLineaC then
+	red <= '1'; blue <= '0'; green <= '1';
 --------------------------------------------------------------------------------
 else                     ----------blank signal display
     red <= '0' ;
