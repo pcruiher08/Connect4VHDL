@@ -109,7 +109,6 @@ begin
     --divisor de frecuencia 50 a 25
 if clk50_in'event and clk50_in='1' then
 if (clk25 = '0') then              
- 
 clk25 <= '1';
 else
 clk25 <= '0';
@@ -120,14 +119,17 @@ end process;
 process (clk1Hert)
 begin
     if(rising_edge(clk1Hert))
-        if(limiteDerechoSelector = limitesDerercha(1)) then 
-            limiteDerechoSelector <= limitesDerecha(2);
+        if(limiteDerechoSelector = limitesDerercha(0)) then 
+            limiteDerechoSelector <= limitesDerecha(1);
+            limiteIzquierdoSelector <= limitesIzquierda(1);
+        elsif limiteDerechoSelector = limitesDerecha(1) then 
+            limiteDerechoSelector <= limitesDerecha(2); 
             limiteIzquierdoSelector <= limitesIzquierda(2);
         elsif limiteDerechoSelector = limitesDerecha(2) then 
-            limiteDerechoSelector <= limitesDerecha(3); 
-            limiteIzquierdoSelector <= limitesIzquierda(3);
-        elsif limiteDerechoSelector = limitesDerecha(4) then 
-            limiteDerechoSelector <= limitesDerecha(1);
+            limiteDerechoSelector <= limitesDerecha(3);
+            limiteIzquierdoSelector <= limitesIzquierda(4);
+        else 
+            limiteDerechoSelector <= limitesDerecha(4);
             limiteIzquierdoSelector <= limitesIzquierda(4);
         end if; 
     end if; 
@@ -179,7 +181,7 @@ elsif hs = limiteLinea3 and vs >= limiteSuperior and vs <= limiteInferior then--
     blue <= '1';
     green <= '1';
 elsif hs <= limiteDerechoSelector and hs >= limiteIzquierdoSelector and vs <= limiteInferiorSelector and vs >= limiteSuperiorSelector then 
-    res <= '1'; 
+    red <= '1'; 
     blue <= '0'; 
     green <= '0';
 --------------------------------------------------------------------------------
