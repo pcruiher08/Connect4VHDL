@@ -9,20 +9,20 @@ entity clk1Hz is
          );
     end clk1Hz;
     
-    architecture Behavioral of digi_clk is
+    architecture Behavioral of clk1Hz is
     
     signal count : integer :=1;
-    signal clk : std_logic :='0';
+    --signal clk : std_logic :='0';
     
     
      --clk generation.For 50 MHz clock this generates 1 Hz clock.
     process(clk1) 
     begin
-    if(clk1'event and clk1='1') then
+    if rising_edge(clk1) then
     count <=count+1;
     if(count = 25000000) then
     clk <= not clk;
-    count <=1;
+    count := 0;
     end if;
     end if;
     end process;
@@ -92,7 +92,7 @@ end process;
 
 process(clk50_in)
 begin
-    port_map(clk50_in, clk1Hert);
+    port map(clk50_in, clk1Hert);
 end process;
 
 process (clk25)
