@@ -118,23 +118,22 @@ end process;
 
 process (clk1Hert)
 begin
-    if(rising_edge(clk1Hert))
-        if(limiteDerechoSelector = limitesDerercha(0)) then 
-            limiteDerechoSelector <= limitesDerecha(1);
-            limiteIzquierdoSelector <= limitesIzquierda(1);
-        elsif limiteDerechoSelector = limitesDerecha(1) then 
-            limiteDerechoSelector <= limitesDerecha(2); 
-            limiteIzquierdoSelector <= limitesIzquierda(2);
-        elsif limiteDerechoSelector = limitesDerecha(2) then 
-            limiteDerechoSelector <= limitesDerecha(3);
-            limiteIzquierdoSelector <= limitesIzquierda(4);
-        else 
-            limiteDerechoSelector <= limitesDerecha(4);
-            limiteIzquierdoSelector <= limitesIzquierda(4);
+    if(rising_edge(clk1Hert)) then
+        if(limiteDerechoSelector = limitesDerSel(0)) then
+            limiteDerechoSelector <= limitesDerSel(1);
+            limiteIzquierdoSelector <= limitesIzqSel(1);
+        elsif limiteDerechoSelector = limitesDerSel(1) then
+            limiteDerechoSelector <= limitesDerSel(2); 
+            limiteIzquierdoSelector <= limitesIzqSel(2);
+        elsif limiteDerechoSelector = limitesDerSel(2) then
+            limiteDerechoSelector <= limitesDerSel(3);
+            limiteIzquierdoSelector <= limitesIzqSel(3);
+        else
+            limiteDerechoSelector <= limitesDerSel(1);
+            limiteIzquierdoSelector <= limitesIzqSel(1);
         end if; 
     end if; 
 end process; 
-
 
 process (clk25)
 begin
