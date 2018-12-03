@@ -322,29 +322,33 @@ if(columna = 1 and botonAb = '1' and (not columna1General = "1111"))then
     if(columna1GeneralSinTrim = "0001") then
         if(jugador = '1') then
             columna1Rojo(2)<='1';
+            columna1RojoSinTrim(2)<='1';
             columna1General <= "0011"; 
         else
             columna1Amarillo(2)<='1';
+            columna1AmarilloSinTrim(2)<='1';
             columna1General <= "0011"; 
         end if;
     end if;
     if(columna1GeneralSinTrim = "0011") then
-         
         if(jugador = '1') then
             columna1Rojo(1)<='1';
+            columna1RojoSinTrim(1)<='1';
             columna1General <= "0111";
         else
             columna1Amarillo(1)<='1';
+            columna1AmarilloSinTrim(1)<='1';
             columna1General <= "0111";
         end if;
     end if;
     if(columna1GeneralSinTrim = "0111") then
-        
         if(jugador = '1') then
             columna1Rojo(0)<='1';
+            columna1RojoSinTrim(0)<='1';
             columna1General <= "1111"; 
         else
             columna1Amarillo(0)<='1';
+            columna1RojoSinTrim(0)<='1';
             columna1General <= "1111"; 
         end if;
     end if;
