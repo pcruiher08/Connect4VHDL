@@ -220,7 +220,7 @@ elsif jugador='1' and hs <= limitesDerecha(0) and hs >= limitesIzquierda(0) and 
     red <= '1'; blue <= '0'; green <= '0';
 elsif jugador='0' and hs <= limitesDerecha(0) and hs >= limitesIzquierda(0) and vs = limiteSuperiorSelector then --cursor selector
     red <= '1'; blue <= '0'; green <= '1';
-elsif columna1RojoSinTrim="0001" and hs <= limiteLinea1 and hs >= limiteIzquierda and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+elsif columna1RojoSinTrim(3)='1' and hs <= limiteLinea1 and hs >= limiteIzquierda and vs <= limiteInferior and vs >= limiteLineaC then --bloque
 	red <= '1'; blue <= '0'; green <= '1';
 --------------------------------------------------------------------------------
 else                     ----------blank signal display
