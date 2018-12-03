@@ -90,8 +90,9 @@ signal limitesDerecha : limitesDerSel := ("0100100111","0110000110","0111100101"
 signal limitesIzquierda : limitesIzqSel := ("0011110000","0101001111","0110101110","1000001101"); --{240,335,430,525}
 signal indices: std_logic_vector(3 downto 0);
 signal ledsignal, signalLedIndicador : bit;--indicador de la frecuencia de 1hz
-signal leeAbajo : bit; 
+signal leeAbajo : bit;
 signal columna: integer := 1;
+signal jugador : bit:='0'; 
 
 begin
 --inicializacion de las variables de la cuadricula y los limites
@@ -111,6 +112,7 @@ begin
  limiteDerechoSelector    <=  "0100100111"; --0
 
 clock50<= clk50_in;
+
 -- generate a 25Mhz clock
 process (clk50_in)
 begin
@@ -144,6 +146,7 @@ process (clk1Hert)
 begin
     if(rising_edge(clk1Hert)) then
         ledsignal <= not ledsignal; 
+          if(botonAb = '1' and jugador = '0') then jugador <= '1'; elsif (botonAb = '1' and jugador '1') then jugador <= '0'; end if;
 		  if(botonDer = '1' or botonIzq = '1') then signalLedIndicador <= '1'; else signalLedIndicador <= '0'; end if;
 		  if(botonDer = '1') then
 		  limitesDerecha(0)<=limitesDerecha(1);
@@ -195,10 +198,12 @@ elsif hs = limiteLinea2 and vs >= limiteSuperior and vs <= limiteInferior then--
     red <= '0'; blue <= '1'; green <= '1';
 elsif hs = limiteLinea3 and vs >= limiteSuperior and vs <= limiteInferior then--linea derecha
     red <= '0'; blue <= '1'; green <= '1';
-elsif hs <= limitesDerecha(0) and hs >= limitesIzquierda(0) and vs = limiteSuperiorSelector then --cursor selector
-    red <= '1'; blue <= '1'; green <= '1';
-elsif hs <= limiteLinea1 and hs >= limiteIzquierda and vs <= limiteInferior and vs >= limiteLineaC then --bloque
-	red <= '1'; blue <= '0'; green <= '1';
+elsif jugador='1' and hs <= limitesDerecha(0) and hs >= limitesIzquierda(0) and vs = limiteSuperiorSelector then --cursor selector
+    red <= '1'; blue <= '0'; green <= '0';
+    elsif jugador='0' and hs <= limitesDerecha(0) and hs >= limitesIzquierda(0) and vs = limiteSuperiorSelector then --cursor selector
+    red <= '1'; blue <= '0'; green <= '1';
+--elsif hs <= limiteLinea1 and hs >= limiteIzquierda and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+--	red <= '1'; blue <= '0'; green <= '1';
 --------------------------------------------------------------------------------
 else                     ----------blank signal display
     red <= '0' ;
