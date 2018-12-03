@@ -8,13 +8,10 @@ entity clk1Hz is
            clk : out std_logic
          );
     end clk1Hz;
-    
     architecture comp of clk1Hz is
-    
     signal count : integer :=1;
     signal clock : std_logic :='0';
     begin
-    
      --clk generation.For 50 MHz clock this generates 1 Hz clock.
     process(clk1) 
     begin
@@ -27,7 +24,6 @@ entity clk1Hz is
     end if;
 	 	 clk<= clock; 
     end process;
-
 end comp;
 
 library IEEE;
@@ -112,7 +108,6 @@ begin
  limiteIzquierdoSelector  <=  "0011110000"; --0
  limiteDerechoSelector    <=  "0100100111"; --0
 
-
 clock50<= clk50_in;
 -- generate a 25Mhz clock
 process (clk50_in)
@@ -124,7 +119,6 @@ if clk50_in'event and clk50_in='1' then
         clk1Hert <= not clk1Hert;
         count <= 1;
     end if;
-
 if (clk25 = '0') then              
 clk25 <= '1';
 else
@@ -255,5 +249,4 @@ end if;
 end if;
 end if;
 end process;
-
 end Behavioral;
