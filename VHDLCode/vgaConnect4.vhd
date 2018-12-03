@@ -184,19 +184,7 @@ process (clk25)
 begin
 if clk25'event and clk25 = '1' then
     --TABLERO
-    columna1RojoSinTrim <= columna1Rojo;
-    columna2RojoSinTrim <= columna2Rojo;
-    columna3RojoSinTrim <= columna3Rojo;
-    columna4RojoSinTrim <= columna4Rojo;
-    columna1AmarilloSinTrim <= columna1Amarillo;
-    columna2AmarilloSinTrim <= columna2Amarillo;
-    columna3AmarilloSinTrim <= columna3Amarillo;
-    columna4AmarilloSinTrim <= columna4Amarillo;
-    columna1GeneralSinTrim <= columna1General;
-    columna2GeneralSinTrim <= columna2General;
-    columna3GeneralSinTrim <= columna3General;
-    columna4GeneralSinTrim <= columna4General;
-    
+
 if hs = limiteIzquierda and vs >= limiteSuperior and vs <= limiteInferior then ---linea izquierda
     red <= '0' ; blue <= '1'; green <= '1';
 elsif hs = limiteDerecha and vs >= limiteSuperior and vs <= limiteInferior then--linea derecha 
