@@ -259,7 +259,7 @@ elsif columna1AmarilloSinTrim(1)='1' and hs <= limiteLinea1 and hs >= limiteIzqu
     --(1,1)
 elsif columna2RojoSinTrim(1)='1' and hs <= limiteLinea2 and hs >= limiteLinea1 and vs <= limiteLineaB and vs >= limiteLineaA then --bloque
     red <= '1'; blue <= '0'; green <= '0';
-elsif columna2AmarilloSinTrim(1)='0' and hs <= limiteLinea2 and hs >= limiteLinea1 and vs <= limiteLineaB and vs >= limiteLineaA then --bloque
+elsif columna2AmarilloSinTrim(1)='1' and hs <= limiteLinea2 and hs >= limiteLinea1 and vs <= limiteLineaB and vs >= limiteLineaA then --bloque
     red <= '1'; blue <= '0'; green <= '1';
     --(1,2)
 elsif columna3RojoSinTrim(1)='1' and hs <= limiteLinea3 and hs >= limiteLinea2 and vs <= limiteLineaB and vs >= limiteLineaA then --bloque
