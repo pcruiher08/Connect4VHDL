@@ -137,7 +137,18 @@ end if;
 end process;
 --clk1Hz port map(clock50, clk1Hert);
 led <= ledsignal;
-
+columna1RojoSinTrim<=columna1Rojo;
+columna2RojoSinTrim<=columna2Rojo;
+columna3RojoSinTrim<=columna3Rojo;
+columna4RojoSinTrim<=columna4Rojo;
+columna1AmarilloSinTrim<=columna1Amarillo;
+columna2AmarilloSinTrim<=columna2Amarillo;
+columna3AmarilloSinTrim<=columna3Amarillo;
+columna4AmarilloSinTrim<=columna4Amarillo;
+columna1GeneralSinTrim<=columna1General;
+columna2GeneralSinTrim<=columna2General;
+columna3GeneralSinTrim<=columna3General;
+columna4GeneralSinTrim<=columna4General;
 process(clk50_in)
 begin
 if(rising_edge(clk50_in)) then
