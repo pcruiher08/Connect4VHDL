@@ -225,9 +225,73 @@ elsif columna3RojoSinTrim(3)='1' and hs <= limiteLinea3 and hs >= limiteLinea2 a
 elsif columna3AmarilloSinTrim(3)='1' and hs <= limiteLinea3 and hs >= limiteLinea2 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
     red <= '1'; blue <= '0'; green <= '1';
     --(3,3)
-elsif columna1RojoSinTrim(3)='1' and hs <= limiteLinea4 and hs >= limiteLinea3 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+elsif columna4RojoSinTrim(3)='1' and hs <= limiteDerecha and hs >= limiteLinea3 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
     red <= '1'; blue <= '0'; green <= '1';
-elsif columna1AmarilloSinTrim(3)='1' and hs <= limiteLinea4 and hs >= limiteLinea3 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+elsif columna4AmarilloSinTrim(3)='1' and hs <= limiteDerecha and hs >= limiteLinea3 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '1';
+
+    --(2,0)
+elsif columna1RojoSinTrim(2)='1' and hs <= limiteLinea1 and hs >= limiteIzquierda and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '0';
+elsif columna1AmarilloSinTrim(2)='1' and hs <= limiteLinea1 and hs >= limiteIzquierda and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '1';
+    --(2,1)
+elsif columna2RojoSinTrim(2)='1' and hs <= limiteLinea2 and hs >= limiteLinea1 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '0';
+elsif columna2AmarilloSinTrim(2)='1' and hs <= limiteLinea2 and hs >= limiteLinea1 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '1';
+    --(2,2)
+elsif columna3RojoSinTrim(2)='1' and hs <= limiteLinea3 and hs >= limiteLinea2 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '0';
+elsif columna3AmarilloSinTrim(2)='1' and hs <= limiteLinea3 and hs >= limiteLinea2 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '1';
+    --(2,3)
+elsif columna4RojoSinTrim(2)='1' and hs <= limiteDerecha and hs >= limiteLinea3 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '1';
+elsif columna4AmarilloSinTrim(2)='1' and hs <= limiteDerecha and hs >= limiteLinea3 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '1';
+
+    --(1,0)
+elsif columna1RojoSinTrim(1)='1' and hs <= limiteLinea1 and hs >= limiteIzquierda and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '0';
+elsif columna1AmarilloSinTrim(1)='1' and hs <= limiteLinea1 and hs >= limiteIzquierda and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '1';
+    --(1,1)
+elsif columna2RojoSinTrim(1)='1' and hs <= limiteLinea2 and hs >= limiteLinea1 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '0';
+elsif columna2AmarilloSinTrim(1)='1' and hs <= limiteLinea2 and hs >= limiteLinea1 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '1';
+    --(1,2)
+elsif columna3RojoSinTrim(1)='1' and hs <= limiteLinea3 and hs >= limiteLinea2 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '0';
+elsif columna3AmarilloSinTrim(1)='1' and hs <= limiteLinea3 and hs >= limiteLinea2 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '1';
+    --(1,3)
+elsif columna4RojoSinTrim(1)='1' and hs <= limiteDerecha and hs >= limiteLinea3 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '1';
+elsif columna4AmarilloSinTrim(1)='1' and hs <= limiteDerecha and hs >= limiteLinea3 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '1';
+
+
+    --(0,0)
+elsif columna1RojoSinTrim(0)='1' and hs <= limiteLinea1 and hs >= limiteIzquierda and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '0';
+elsif columna1AmarilloSinTrim(0)='1' and hs <= limiteLinea1 and hs >= limiteIzquierda and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '1';
+    --(0,1)
+elsif columna2RojoSinTrim(0)='1' and hs <= limiteLinea2 and hs >= limiteLinea1 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '0';
+elsif columna2AmarilloSinTrim(0)='1' and hs <= limiteLinea2 and hs >= limiteLinea1 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '1';
+    --(0,2)
+elsif columna3RojoSinTrim(0)='1' and hs <= limiteLinea3 and hs >= limiteLinea2 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '0';
+elsif columna3AmarilloSinTrim(0)='1' and hs <= limiteLinea3 and hs >= limiteLinea2 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '1';
+    --(0,3)
+elsif columna4RojoSinTrim(0)='1' and hs <= limiteDerecha and hs >= limiteLinea3 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '1';
+elsif columna4AmarilloSinTrim(0)='1' and hs <= limiteDerecha and hs >= limiteLinea3 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
     red <= '1'; blue <= '0'; green <= '1';
 --------------------------------------------------------------------------------
 else                     ----------blank signal display
