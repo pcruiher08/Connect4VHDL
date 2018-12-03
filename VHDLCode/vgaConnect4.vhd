@@ -80,7 +80,10 @@ signal fila1General, fila2General, fila3General, fila4General: bit_vector(3 down
 --columnas
 signal columna1Rojo, columna2Rojo, columna3Rojo, columna4Rojo: bit_vector(3 downto 0) := "0000";
 signal columna1Amarillo, columna2Amarillo, columna3Amarillo, columna4Amarillo: bit_vector(3 downto 0) :="0000";
-signal columna1General, columna2General, columna3General, columna4General: bit_vector(3 downto 0):="0000";
+signal columna1General, columna2General, columna3General, columna4General: bit_vector(3 downto 0):= "0000";
+signal columna1RojoSinTrim, columna2RojoSinTrim, columna3RojoSinTrim, columna4RojoSinTrim: bit_vector(3 downto 0) := "0000";
+signal columna1AmarilloSinTrim, columna2AmarilloSinTrim, columna3AmarilloSinTrim, columna4AmarilloSinTrim: bit_vector(3 downto 0);
+signal columna1GeneralSinTrim, columna2GeneralSinTrim, columna3GeneralSinTrim, columna4GeneralSinTrim: bit_vector(3 downto 0);
 
 --indices
 signal limiteInferiorSelector, limiteSuperiorSelector, limiteIzquierdoSelector, limiteDerechoSelector: std_logic_vector(9 downto 0);
@@ -92,7 +95,7 @@ signal limitesIzquierda : limitesIzqSel := ("0011110000","0101001111","011010111
 
 signal indices: std_logic_vector(3 downto 0);
 signal ledsignal, signalLedIndicador : bit;--indicador de la frecuencia de 1hz
-signal leeAbajo : bit;
+--signal leeAbajo : bit;
 signal columna: integer := 1;
 signal jugador : bit:='0'; 
 
@@ -134,6 +137,19 @@ end if;
 end process;
 --clk1Hz port map(clock50, clk1Hert);
 led <= ledsignal;
+columna1RojoSinTrim <= columna1Rojo;
+columna2RojoSinTrim <= columna2Rojo;
+columna3RojoSinTrim <= columna3Rojo;
+columna4RojoSinTrim <= columna4Rojo;
+columna1AmarilloSinTrim <= columna1Amarillo;
+columna2AmarilloSinTrim <= columna2Amarillo;
+columna3AmarilloSinTrim <= columna3Amarillo;
+columna4AmarilloSinTrim <= columna4Amarillo;
+columna1GeneralSinTrim <= columna1General;
+columna2GeneralSinTrim <= columna2General;
+columna3GeneralSinTrim <= columna3General;
+columna4GeneralSinTrim <= columna4General;
+
 process(clk50_in)
 begin
 if(rising_edge(clk50_in)) then
@@ -204,7 +220,7 @@ elsif jugador='1' and hs <= limitesDerecha(0) and hs >= limitesIzquierda(0) and 
     red <= '1'; blue <= '0'; green <= '0';
 elsif jugador='0' and hs <= limitesDerecha(0) and hs >= limitesIzquierda(0) and vs = limiteSuperiorSelector then --cursor selector
     red <= '1'; blue <= '0'; green <= '1';
-elsif columna1Rojo(0)='1' and hs <= limiteLinea1 and hs >= limiteIzquierda and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+elsif columna1RojoSinTrim="0001" and hs <= limiteLinea1 and hs >= limiteIzquierda and vs <= limiteInferior and vs >= limiteLineaC then --bloque
 	red <= '1'; blue <= '0'; green <= '1';
 --------------------------------------------------------------------------------
 else                     ----------blank signal display
