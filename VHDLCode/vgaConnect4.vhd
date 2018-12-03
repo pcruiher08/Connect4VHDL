@@ -165,7 +165,7 @@ begin
     if(rising_edge(clk1Hert)) then
         ledsignal <= not ledsignal; 
           if(botonAb = '1' and jugador = '0') then jugador <= '1'; elsif (botonAb = '1' and jugador ='1') then jugador <= '0'; end if;
-		  if(botonDer = '1' or botonIzq = '1') then signalLedIndicador <= '1'; else signalLedIndicador <= '0'; end if;
+		  if(botonDer = '1' or botonIzq = '1' or botonAb = '1') then signalLedIndicador <= '1'; else signalLedIndicador <= '0'; end if;
 		  if(botonDer = '1') then
 		  limitesDerecha(0)<=limitesDerecha(1);
 		  limitesDerecha(1)<=limitesDerecha(2);
@@ -198,8 +198,8 @@ if clk25'event and clk25 = '1' then
     --TABLERO
 if hs = limiteIzquierda and vs >= limiteSuperior and vs <= limiteInferior then ---linea izquierda
     red <= '0' ; blue <= '1'; green <= '1';
-elsif hs = limiteDerecha and vs >= limiteSuperior and vs <= limiteInferior then--linea derecha red <= '0';
-    blue <= '1'; green <= '1';
+elsif hs = limiteDerecha and vs >= limiteSuperior and vs <= limiteInferior then--linea derecha 
+    red <= '0'; blue <= '1'; green <= '1';
 elsif hs <= limiteDerecha and hs>= limiteIzquierda and vs = limiteSuperior then -- linea arriba / 120
     red <= '0'; blue <= '1'; green <= '1';
 elsif hs <= limiteDerecha and hs>= limiteIzquierda and vs = limiteInferior then -- linea abajo / 511
