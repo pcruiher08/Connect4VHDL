@@ -209,8 +209,26 @@ elsif jugador='1' and hs <= limitesDerecha(0) and hs >= limitesIzquierda(0) and 
     red <= '1'; blue <= '0'; green <= '0';
 elsif jugador='0' and hs <= limitesDerecha(0) and hs >= limitesIzquierda(0) and vs = limiteSuperiorSelector then --cursor selector
     red <= '1'; blue <= '0'; green <= '1';
+    --(3,0)
 elsif columna1RojoSinTrim(3)='1' and hs <= limiteLinea1 and hs >= limiteIzquierda and vs <= limiteInferior and vs >= limiteLineaC then --bloque
-	red <= '1'; blue <= '0'; green <= '1';
+    red <= '1'; blue <= '0'; green <= '0';
+elsif columna1AmarilloSinTrim(3)='1' and hs <= limiteLinea1 and hs >= limiteIzquierda and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '1';
+    --(3,1)
+elsif columna2RojoSinTrim(3)='1' and hs <= limiteLinea2 and hs >= limiteLinea1 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '0';
+elsif columna2AmarilloSinTrim(3)='1' and hs <= limiteLinea2 and hs >= limiteLinea1 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '1';
+    --(3,2)
+elsif columna3RojoSinTrim(3)='1' and hs <= limiteLinea3 and hs >= limiteLinea2 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '0';
+elsif columna3AmarilloSinTrim(3)='1' and hs <= limiteLinea3 and hs >= limiteLinea2 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '1';
+    --(3,3)
+elsif columna1RojoSinTrim(3)='1' and hs <= limiteLinea4 and hs >= limiteLinea3 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '1';
+elsif columna1AmarilloSinTrim(3)='1' and hs <= limiteLinea4 and hs >= limiteLinea3 and vs <= limiteInferior and vs >= limiteLineaC then --bloque
+    red <= '1'; blue <= '0'; green <= '1';
 --------------------------------------------------------------------------------
 else                     ----------blank signal display
     red <= '0' ; blue <= '0'; green <= '0' ;
