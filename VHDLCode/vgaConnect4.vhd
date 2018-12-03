@@ -40,11 +40,12 @@ port(clk50_in    : in std_logic;          -----system clock i/p
         vs_out   : out std_logic;         ------vertical   control signal
 		botonIzq : in bit;
         botonDer : in bit;
+        botonAb  : in bit;
         ledCol1  : out bit;
         ledCol2  : out bit; 
         ledCol3  : out bit; 
         ledCol4  : out bit;
-		  ledIndica: out bit;
+		ledIndica: out bit;
         led      : out bit);
 end VGA;
 
@@ -89,6 +90,7 @@ signal limitesDerecha : limitesDerSel := ("0100100111","0110000110","0111100101"
 signal limitesIzquierda : limitesIzqSel := ("0011110000","0101001111","0110101110","1000001101"); --{240,335,430,525}
 signal indices: std_logic_vector(3 downto 0);
 signal ledsignal, signalLedIndicador : bit;--indicador de la frecuencia de 1hz
+signal leeAbajo : bit; 
 signal columna: integer := 1;
 
 begin
@@ -174,50 +176,28 @@ begin
 if clk25'event and clk25 = '1' then
     --TABLERO
 if hs = limiteIzquierda and vs >= limiteSuperior and vs <= limiteInferior then ---linea izquierda
-    red <= '0' ;
-    blue <= '1';
-    green <= '1';
-elsif hs = limiteDerecha and vs >= limiteSuperior and vs <= limiteInferior then--linea derecha
-    red <= '0';
-    blue <= '1';
-    green <= '1';
+    red <= '0' ; blue <= '1'; green <= '1';
+elsif hs = limiteDerecha and vs >= limiteSuperior and vs <= limiteInferior then--linea derecha red <= '0';
+    blue <= '1'; green <= '1';
 elsif hs <= limiteDerecha and hs>= limiteIzquierda and vs = limiteSuperior then -- linea arriba / 120
-    red <= '0';
-    blue <= '1';
-    green <= '1';
+    red <= '0'; blue <= '1'; green <= '1';
 elsif hs <= limiteDerecha and hs>= limiteIzquierda and vs = limiteInferior then -- linea abajo / 511
-    red <= '0';
-    blue <= '1';
-    green <= '1';
+    red <= '0'; blue <= '1'; green <= '1';
 elsif hs <= limiteDerecha and hs>= limiteIzquierda and vs = limiteLineaA then -- linea A 
-    red <= '0';
-    blue <= '1';
-    green <= '1';
+    red <= '0'; blue <= '1'; green <= '1';
 elsif hs <= limiteDerecha and hs>= limiteIzquierda and vs = limiteLineaB then -- linea B
-    red <= '0';
-    blue <= '1';
-    green <= '1';
+    red <= '0'; blue <= '1'; green <= '1';
 elsif hs <= limiteDerecha and hs>= limiteIzquierda and vs = limiteLineaC then -- linea C
-    red <= '0';
-    blue <= '1';
-    green <='1';
+    red <= '0'; blue <= '1'; green <='1';
 elsif hs = limiteLinea1 and vs >= limiteSuperior and vs <= limiteInferior then--linea derecha
-    red <= '0';
-    blue <= '1';
-    green <= '1';
+    red <= '0'; blue <= '1'; green <= '1';
 elsif hs = limiteLinea2 and vs >= limiteSuperior and vs <= limiteInferior then--linea derecha
-    red <= '0';
-    blue <= '1';
-    green <= '1';
+    red <= '0'; blue <= '1'; green <= '1';
 elsif hs = limiteLinea3 and vs >= limiteSuperior and vs <= limiteInferior then--linea derecha
-    red <= '0';
-    blue <= '1';
-    green <= '1';
-elsif hs <= limitesDerecha(0) and hs >= limitesIzquierda(0) and vs = limiteSuperiorSelector then 
-    red <= '1'; 
-    blue <= '1'; 
-    green <= '1';
-elsif hs <= limiteLinea1 and hs >= limiteIzquierda and vs <= limiteInferior and vs >= limiteLineaC then
+    red <= '0'; blue <= '1'; green <= '1';
+elsif hs <= limitesDerecha(0) and hs >= limitesIzquierda(0) and vs = limiteSuperiorSelector then --cursor selector
+    red <= '1'; blue <= '1'; green <= '1';
+elsif hs <= limiteLinea1 and hs >= limiteIzquierda and vs <= limiteInferior and vs >= limiteLineaC then --bloque
 	red <= '1'; blue <= '0'; green <= '1';
 --------------------------------------------------------------------------------
 else                     ----------blank signal display
