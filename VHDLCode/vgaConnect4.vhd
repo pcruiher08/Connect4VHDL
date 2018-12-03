@@ -48,6 +48,7 @@ port(clk50_in    : in std_logic;          -----system clock i/p
         ledCol2  : out bit; 
         ledCol3  : out bit; 
         ledCol4  : out bit;
+		  ledIndica: out bit;
         led      : out bit);
 end VGA;
 
@@ -91,7 +92,7 @@ type limitesIzqSel is array (0 to 3) of std_logic_vector(9 downto 0);
 signal limitesDerecha : limitesDerSel := ("0100100111","0110000110","0111100101","1001000100"); --{295, 390, 485, 580}
 signal limitesIzquierda : limitesIzqSel := ("0011110000","0101001111","0110101110","1000001101"); --{240,335,430,525}
 signal indices: std_logic_vector(3 downto 0);
-signal ledsignal : bit;--indicador de la frecuencia de 1hz
+signal ledsignal, signalLedIndicador : bit;--indicador de la frecuencia de 1hz
 signal columna: integer := 1;
 
 begin
@@ -133,14 +134,21 @@ end if;
 end process;
 --clk1Hz port map(clock50, clk1Hert);
 led <= ledsignal;
+process(clk50_in)
+begin
+if(rising_edge(clk50_in)) then
+            if(columna = 1) then LedCol1<='1'; ledCol2<='0'; ledCol3<='0'; ledCol4<='0'; end if;
+            if(columna = 2) then LedCol1<='0'; ledCol2<='1'; ledCol3<='0'; ledCol4<='0'; end if;
+            if(columna = 3) then LedCol1<='0'; ledCol2<='0'; ledCol3<='1'; ledCol4<='0'; end if;
+            if(columna = 4) then LedCol1<='0'; ledCol2<='0'; ledCol3<='0'; ledCol4<='1'; end if;
+				end if;
+end process;
+				ledIndica<= signalLedIndicador;
 process (clk1Hert)
 begin
     if(rising_edge(clk1Hert)) then
         ledsignal <= not ledsignal; 
-            if(columna = 1) LedCol1<=1; end if;
-            if(columna = 2) ledCol2<=2; end if; 
-            if(columna = 3) ledCol3<=3; end if; 
-            if(columna = 4) ledCol4<=4; end if;
+		  if(botonDer = '1' or botonIzq = '1') then signalLedIndicador <= '1'; else signalLedIndicador <= '0'; end if;
 		  if(botonDer = '1') then
 		  limitesDerecha(0)<=limitesDerecha(1);
 		  limitesDerecha(1)<=limitesDerecha(2);
@@ -150,7 +158,8 @@ begin
 		  limitesIzquierda(1)<=limitesIzquierda(2);
 		  limitesIzquierda(2)<=limitesIzquierda(3);
           limitesIzquierda(3)<=limitesIzquierda(0);
-          columna <= (columna + 1) mod 4;
+          --columna := (columna + 1) mod 4; para saber en que columna realmente esta pisando el selector
+			 if(columna = 1) then columna <= 2; elsif columna = 2 then columna <= 3; elsif columna = 3 then columna <= 4; else columna<=1; end if;
 		  end if; 
 		  if botonIzq = '1' then
 		  limitesDerecha(0)<=limitesDerecha(3);
@@ -161,7 +170,7 @@ begin
 		  limitesIzquierda(1)<=limitesIzquierda(0);
 		  limitesIzquierda(2)<=limitesIzquierda(1);
           limitesIzquierda(3)<=limitesIzquierda(2);
-          columna <= (columna - 1) mod 4;
+			 if(columna = 1) then columna <= 4; elsif columna = 2 then columna <= 1; elsif columna = 3 then columna <= 2; else columna<=3; end if;
 		  end if; 
     end if; 
 end process; 
