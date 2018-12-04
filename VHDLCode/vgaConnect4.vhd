@@ -128,8 +128,8 @@ begin
         if(columna2Amarillo(1)='1' and columna2Amarillo(1)='1' and columna3Amarillo(1)='1' and columna4Amarillo(1)='1')then yellowWins<='1'; redWins<='0'; tie<='0'; end if;
         if(columna2Amarillo(0)='1' and columna2Amarillo(0)='1' and columna3Amarillo(0)='1' and columna4Amarillo(0)='1')then yellowWins<='1'; redWins<='0'; tie<='0'; end if;
         --diagonales
-        if(columna1Rojo(3)='1' and columna2Rojo(2)='1' and columna3Rojo(1)='1' and columna4Rojo(0)='1')then rojoWins<='1'; yellowWins<='0'; tie<='0'; end if;
-        if(columna1Rojo(0)='1' and columna2Rojo(1)='1' and columna3Rojo(2)='1' and columna4Rojo(3)='1')then rojoWins<='1'; yellowWins<='0'; tie<='0'; end if;
+        if(columna1Rojo(3)='1' and columna2Rojo(2)='1' and columna3Rojo(1)='1' and columna4Rojo(0)='1')then redWins<='1'; yellowWins<='0'; tie<='0'; end if;
+        if(columna1Rojo(0)='1' and columna2Rojo(1)='1' and columna3Rojo(2)='1' and columna4Rojo(3)='1')then redWins<='1'; yellowWins<='0'; tie<='0'; end if;
         if(columna1amarillo(3)='1' and columna2amarillo(2)='1' and columna3amarillo(1)='1' and columna4amarillo(0)='1')then yellowWins<='1'; redWins<='0'; tie<='0'; end if;
         if(columna1amarillo(0)='1' and columna2amarillo(1)='1' and columna3amarillo(2)='1' and columna4amarillo(3)='1')then yellowWins<='1'; redWins<='0'; tie<='0'; end if;
 
@@ -137,7 +137,7 @@ begin
         if(columna1General="1111" and columna2General="1111" and columna3General="1111" and columna4General="1111")then
             tieSignal <=1;
             end if;
-        if(tieSignal = '1' and redWin = '0' and yellowWin = '0')then tie<=1; yellowWin = '0'; redWin = '0'; end if;
+        if(tieSignal = '1' and redWins = '0' and yellowWins = '0')then tie<='1'; yellowWin <= '0'; redWin <= '0'; end if;
     end if;
 end process;
 
