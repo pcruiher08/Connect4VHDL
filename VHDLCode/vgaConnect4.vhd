@@ -142,10 +142,9 @@ begin
     end if;
 end process;
 
--- generate a 25Mhz clock
+-- generate a 25Mhz clock AND 1HZ
 process (clk50_in)
 begin
-    --divisor de frecuencia 50 a 25
 if clk50_in'event and clk50_in='1' then
     count <=count+1;
     if(count = 7500000) then
@@ -159,7 +158,7 @@ clk25 <= '0';
 end if;
 end if;
 end process;
---clk1Hz port map(clock50, clk1Hert);
+clk1Hz port map(clock50, clk1Hert); --(COMPONENTE DIVISOR DE FRECUENCIA) PORT MAP, RELOJ DE 50MHZ A 1HZ
 led <= ledsignal;
 ledIndica<= signalLedIndicador;
 process(clk50_in)
@@ -176,7 +175,7 @@ process (clk1Hert)
 begin
     if(rising_edge(clk1Hert)) then
         ledsignal <= not ledsignal; 
-          --if(botonAb = '1' and jugador = '0') then jugador <= '1'; elsif (botonAb = '1' and jugador ='1') then jugador <= '0'; end if;
+          --REGISTRO DE CORRIMIENTO A LA IZQUIERDA
 		  if(botonDer = '1' or botonIzq = '1' or botonAb = '1') then signalLedIndicador <= '1'; else signalLedIndicador <= '0'; end if;
 		  if(botonDer = '1') then
 		  limitesDerecha(0)<=limitesDerecha(1);
@@ -187,7 +186,7 @@ begin
 		  limitesIzquierda(1)<=limitesIzquierda(2);
 		  limitesIzquierda(2)<=limitesIzquierda(3);
           limitesIzquierda(3)<=limitesIzquierda(0);
-          --columna := (columna + 1) mod 4; para saber en que columna realmente esta pisando el selector
+          --REGISTRO DE CORRIMIENTO A LA DERECHA
 			 if(columna = 1) then columna <= 2; elsif columna = 2 then columna <= 3; elsif columna = 3 then columna <= 4; else columna<=1; end if;
 		  end if; 
 		  if botonIzq = '1' then
@@ -207,14 +206,10 @@ end process;
 process(clk1Hert)
 begin
     if(rising_edge(clk1Hert))then
+        --MAQUINA DE ESTADOS POR COLUMNA (ESTADO)
 if(redWins = '0' and tie = '0' and yellowWins = '0')then 
         --COLUMNA 1
-    --if(reset='1')then columna1General <= "0000"; columna1Rojo<="0000"; columna1Amarillo<="0000";
-    --                  columna2General <= "0000"; columna2Rojo<="0000"; columna2Amarillo<="0000";
-    --                  columna3General <= "0000"; columna3Rojo<="0000"; columna3Amarillo<="0000";
-    --                  columna4General <= "0000"; columna4Rojo<="0000"; columna4Amarillo<="0000";
-    --                  end if;
-if(columna = 1 and botonAb = '1')then --and (not columna1General = "1111"))then 
+if(columna = 1 and botonAb = '1')then
 
 c1: case columna1General is
     when "0000" =>     
@@ -369,26 +364,21 @@ if(columna4General = "0000") then
 end if;
 if(columna4General = "0001") then
     if(jugador = '1') then
-        --columna4Rojo(2)<='1';
         columna4Rojo(1)<='1';
         jugador<='0';
         columna4General <= "0011"; 
     else
-        --columna4Amarillo(2)<='1';
         columna4Amarillo(1)<='1';
-        --"----" , "--1-", "001-"
         jugador<='1';
         columna4General <= "0011"; 
     end if;
 end if;
 if(columna4General = "0011") then
     if(jugador = '1') then
-        --columna4Rojo(1)<='1';
         columna4Rojo(2)<='1';
         jugador<='0';
         columna4General <= "0111"; 
     else
-        --columna4Amarillo(1)<='1';
         columna4Amarillo(2)<='1';
         jugador<='1';
         columna4General <= "0111"; 
@@ -396,12 +386,10 @@ if(columna4General = "0011") then
 end if;
 if(columna4General = "0111") then
     if(jugador = '1') then
-        --columna4Rojo(0)<='1';
         columna4Rojo(3)<='1';
         jugador<='0';
         columna4General <= "1111"; 
     else
-        --columna4Amarillo(0)<='1';
         columna4Amarillo(3)<='1';
         jugador<='1';
         columna4General <= "1111"; 
