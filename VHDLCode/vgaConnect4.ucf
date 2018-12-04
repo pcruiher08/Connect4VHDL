@@ -14,4 +14,4 @@ net "ledCol2" loc = "p12";
 net "ledCol3" loc = "n12";
 net "ledCol4" loc = "p13";
 net "buzzer"   loc = "m3";
-net "reset" loc = "l4";
+#net "reset" loc = "l4";
