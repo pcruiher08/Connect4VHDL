@@ -197,7 +197,9 @@ begin
     if(rising_edge(clk1Hert))then
         --COLUMNA 1
 if(columna = 1 and botonAb = '1' and (not columna1General = "1111"))then 
-if(columna1General = "0000") then
+
+c1: case columna1General is
+    when "0000" =>     
     if(jugador = '1') then
         columna1Rojo<="0001";
         jugador<='0';
@@ -207,8 +209,7 @@ if(columna1General = "0000") then
         jugador<='1';
         columna1General <= "0001"; 
     end if;
-end if;
-if(columna1General = "0001") then
+    when "0001" => 
     if(jugador = '1') then
         columna1Rojo(2)<='1';
         jugador<='0';
@@ -218,8 +219,7 @@ if(columna1General = "0001") then
         jugador<='1';
         columna1General <= "0011"; 
     end if;
-end if;
-if(columna1General = "0011") then
+    when "0011" => 
     if(jugador = '1') then
         columna1Rojo(1)<='1';
         jugador<='0';
@@ -229,8 +229,7 @@ if(columna1General = "0011") then
         jugador<='1';
         columna1General <= "0111"; 
     end if;
-end if;
-if(columna1General = "0111") then
+    when "0111" =>
     if(jugador = '1') then
         columna1Rojo(0)<='1';
         jugador<='0';
@@ -240,7 +239,7 @@ if(columna1General = "0111") then
         jugador<='1';
         columna1General <= "1111"; 
     end if;
-end if;
+    end case c1;
 end if; 
 --COLUMNA 2
 if(columna = 2 and botonAb = '1' and (not columna2General = "1111"))then 
