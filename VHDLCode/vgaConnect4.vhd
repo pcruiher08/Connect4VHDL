@@ -530,16 +530,37 @@ end if;
 
 end if;
 --WIN
-    if(redWins = '1' and hs<= limiteDerecha and hs>= limiteIzquierda and vs<= limiteInferior and vs>= limiteSuperior) then 
-        red<='1'; blue<='0'; green <='0';
+    if(redWins = '1') then 
+        --red<='1'; blue<='0'; green <='0';
+        columna1Amarillo<="0000";
+        columna2Amarillo<="0000";
+        columna3Amarillo<="0000";
+        columna4Amarillo<="0000";
     end if;
 
     if(yellowWins = '1') then 
-        red<='1'; blue<='0'; green<='1';
+        --red<='1'; blue<='0'; green<='1';
+        columna1Rojo<="0000";
+        columna2Rojo<="0000";
+        columna3Rojo<="0000";
+        columna4Rojo<="0000";
     end if;
 
     if(tie = '1') then
-        red<='1'; blue<='1'; green<='0';
+        --red<='1'; blue<='1'; green<='0'; restart
+        columna1Amarillo<="0000";
+        columna2Amarillo<="0000";
+        columna3Amarillo<="0000";
+        columna4Amarillo<="0000";
+        columna1Rojo<="0000";
+        columna2Rojo<="0000";
+        columna3Rojo<="0000";
+        columna4Rojo<="0000";
+        columna1General<="0000";
+        columna2General<="0000";
+        columna3General<="0000";
+        columna4General<="0000";
+        jugador<='1';
     end if;
 
 
