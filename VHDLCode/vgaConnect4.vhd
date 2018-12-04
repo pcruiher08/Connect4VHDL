@@ -328,7 +328,7 @@ if(columna = 1 and botonAb = '1' and (not columna1General = "1111"))then
             jugador<='0';
             columna3General <= "0011"; 
         else
-            columna3Amarillo(0 downto 0)<="100";
+            columna3Amarillo(2 downto 0)<="100";
             jugador<='1';
             columna3General <= "0011"; 
         end if;
