@@ -530,7 +530,7 @@ end if;
 
 end if;
 --WIN
-    if(redWins = '1') then 
+    if(redWins = '1' and hs<= limiteDerecha and hs>= limiteIzquierda and vs<= limiteInferior and vs>= limiteSuperior) then 
         red<='1'; blue<='0'; green <='0';
     end if;
 
@@ -539,7 +539,7 @@ end if;
     end if;
 
     if(tie = '1') then
-        red<='1'; blue<='1'; green='0';
+        red<='1'; blue<='1'; green<='0';
     end if;
 
 
