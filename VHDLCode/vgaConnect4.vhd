@@ -311,48 +311,48 @@ else                     ----------blank signal display
 end if;
 --COLUMNA 1
 if(columna = 1 and botonAb = '1' and (not columna1General = "1111"))then 
-    if(columna1GeneralSinTrim = "0000") then
+    if(columna3General = "0000") then
         if(jugador = '1') then
-            columna1Rojo(3)<='1';
-            jugador <= '0';
-            columna1General <= "0001"; 
+            columna3Rojo<="0001";
+            jugador<='0';
+            columna3General <= "0001"; 
         else
-            columna1Amarillo(3)<='1';
-            jugador<= '1';
-            columna1General <= "0001"; 
+            columna3Amarillo<="0001";
+            jugador<='1';
+            columna3General <= "0001"; 
         end if;
     end if;
-    if(columna1GeneralSinTrim = "0001") then
+    if(columna3General = "0001") then
         if(jugador = '1') then
-            columna1Rojo(2)<='1';
+            columna3Rojo(0 to 2)<="001";
             jugador<='0';
-            columna1General <= "0011"; 
+            columna3General <= "0011"; 
         else
-            columna1Amarillo(2)<='1';
+            columna3Amarillo(0 to 2)<="001";
             jugador<='1';
-            columna1General <= "0011"; 
+            columna3General <= "0011"; 
         end if;
     end if;
-    if(columna1GeneralSinTrim = "0011") then
+    if(columna3General = "0011") then
         if(jugador = '1') then
-            columna1Rojo(1)<='1';
+            columna3Rojo(0 to 1)<="01";
             jugador<='0';
-            columna1General <= "0111";
+            columna3General <= "0111"; 
         else
-            columna1Amarillo(1)<='1';
+            columna3Amarillo(0 to 1)<="01";
             jugador<='1';
-            columna1General <= "0111";
+            columna3General <= "0111"; 
         end if;
     end if;
-    if(columna1GeneralSinTrim = "0111") then
+    if(columna3General = "0111") then
         if(jugador = '1') then
-            columna1Rojo(0)<='1';
+            columna3Rojo(0 to 0)<="1";
             jugador<='0';
-            columna1General <= "1111"; 
+            columna3General <= "1111"; 
         else
-            columna1Amarillo(0)<='1';
+            columna3Amarillo(0 to 0)<="1";
             jugador<='1';
-            columna1General <= "1111"; 
+            columna3General <= "1111"; 
         end if;
     end if;
 end if; 
@@ -360,44 +360,44 @@ end if;
 if(columna = 2 and botonAb = '1' and (not columna2General = "1111"))then 
     if(columna2General = "0000") then
         if(jugador = '1') then
-            columna2Rojo(3)<='1';
+            columna2Rojo<="0001";
             jugador<='0';
             columna2General <= "0001"; 
         else
-            columna2Amarillo(3)<='1';
+            columna2Amarillo<="0001";
             jugador<='1';
             columna2General <= "0001"; 
         end if;
     end if;
     if(columna2General = "0001") then
         if(jugador = '1') then
-            columna2Rojo(2)<='1';
+            columna2Rojo(0 to 2)<="001";
             jugador<='0';
             columna2General <= "0011"; 
         else
-            columna2Amarillo(2)<='1';
+            columna2Amarillo(0 to 2)<="001";
             jugador<='1';
             columna2General <= "0011"; 
         end if;
     end if;
     if(columna2General = "0011") then
         if(jugador = '1') then
-            columna2Rojo(1)<='1';
+            columna2Rojo(0 to 1)<="01";
             jugador<='0';
             columna2General <= "0111"; 
         else
-            columna2Amarillo(1)<='1';
+            columna2Amarillo(0 to 1)<="01";
             jugador<='1';
             columna2General <= "0111"; 
         end if;
     end if;
     if(columna2General = "0111") then
         if(jugador = '1') then
-            columna2Rojo(0)<='1';
+            columna2Rojo(0 to 0)<="1";
             jugador<='0';
             columna2General <= "1111"; 
         else
-            columna2Amarillo(0)<='1';
+            columna2Amarillo(0 to 0)<="1";
             jugador<='1';
             columna2General <= "1111"; 
         end if;
@@ -407,44 +407,44 @@ end if;
 if(columna = 3 and botonAb = '1' and (not columna3General = "1111"))then 
     if(columna3General = "0000") then
         if(jugador = '1') then
-            columna3Rojo(3)<='1';
+            columna3Rojo<="0001";
             jugador<='0';
             columna3General <= "0001"; 
         else
-            columna3Amarillo(3)<='1';
+            columna3Amarillo<="0001";
             jugador<='1';
             columna3General <= "0001"; 
         end if;
     end if;
     if(columna3General = "0001") then
         if(jugador = '1') then
-            columna3Rojo(2)<='1';
+            columna3Rojo(0 to 2)<="001";
             jugador<='0';
             columna3General <= "0011"; 
         else
-            columna3Amarillo(2)<='1';
+            columna3Amarillo(0 to 2)<="001";
             jugador<='1';
             columna3General <= "0011"; 
         end if;
     end if;
     if(columna3General = "0011") then
         if(jugador = '1') then
-            columna3Rojo(1)<='1';
+            columna3Rojo(0 to 1)<="01";
             jugador<='0';
             columna3General <= "0111"; 
         else
-            columna3Amarillo(1)<='1';
+            columna3Amarillo(0 to 1)<="01";
             jugador<='1';
             columna3General <= "0111"; 
         end if;
     end if;
     if(columna3General = "0111") then
         if(jugador = '1') then
-            columna3Rojo(0)<='1';
+            columna3Rojo(0 to 0)<="1";
             jugador<='0';
             columna3General <= "1111"; 
         else
-            columna3Amarillo(0)<='1';
+            columna3Amarillo(0 to 0)<="1";
             jugador<='1';
             columna3General <= "1111"; 
         end if;
@@ -454,44 +454,51 @@ end if;
 if(columna = 4 and botonAb = '1' and (not columna4General = "1111"))then 
     if(columna4General = "0000") then
         if(jugador = '1') then
-            columna4Rojo(3)<='1';
+            columna4Rojo<="0001";
             jugador<='0';
             columna4General <= "0001"; 
         else
-            columna4Amarillo(3)<='1';
+            columna4Amarillo<="0001";
             jugador<='1';
             columna4General <= "0001"; 
         end if;
     end if;
     if(columna4General = "0001") then
         if(jugador = '1') then
-            columna4Rojo(2)<='1';
+            --columna4Rojo(2)<='1';
+            columna4Rojo(0 to 2)<="001";
             jugador<='0';
             columna4General <= "0011"; 
         else
-            columna4Amarillo(2)<='1';
+            --columna4Amarillo(2)<='1';
+            columna4Amarillo(0 to 2)<="001";
+            --"----" , "--1-", "001-"
             jugador<='1';
             columna4General <= "0011"; 
         end if;
     end if;
     if(columna4General = "0011") then
         if(jugador = '1') then
-            columna4Rojo(1)<='1';
+            --columna4Rojo(1)<='1';
+            columna4Rojo(0 to 1)<="01";
             jugador<='0';
             columna4General <= "0111"; 
         else
-            columna4Amarillo(1)<='1';
+            --columna4Amarillo(1)<='1';
+            columna4Amarillo(0 to 1)<="01";
             jugador<='1';
             columna4General <= "0111"; 
         end if;
     end if;
     if(columna4General = "0111") then
         if(jugador = '1') then
-            columna4Rojo(0)<='1';
+            --columna4Rojo(0)<='1';
+            columna4Rojo(0 to 0)<="1";
             jugador<='0';
             columna4General <= "1111"; 
         else
-            columna4Amarillo(0)<='1';
+            --columna4Amarillo(0)<='1';
+            columna4Amarillo(0 to 0)<="1";
             jugador<='1';
             columna4General <= "1111"; 
         end if;
