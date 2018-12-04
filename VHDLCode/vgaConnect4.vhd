@@ -40,7 +40,7 @@ port(clk50_in    : in std_logic;          -----system clock i/p
         vs_out   : out std_logic;         ------vertical   control signal
 		botonIzq : in bit;
         botonDer : in bit;
-        botonAb  : in bit;
+        botonAb  : in bit:='0';
         ledCol1  : out bit;
         ledCol2  : out bit; 
         ledCol3  : out bit; 
@@ -73,9 +73,9 @@ limiteDerecha, limiteLineaA, limiteLineaB, limiteLineaC: std_logic_vector (9 dow
 signal limiteLinea1, limiteLinea2, limiteLinea3: std_logic_vector(9 downto 0);
 
 --filas
-signal fila1Rojo, fila2Rojo, fila3Rojo, fila4Rojo: bit_vector(3 downto 0);
-signal fila1Amarillo, fila2Amarillo, fila3Amarillo, fila4Amarillo: bit_vector(3 downto 0);
-signal fila1General, fila2General, fila3General, fila4General: bit_vector(3 downto 0);
+--signal fila1Rojo, fila2Rojo, fila3Rojo, fila4Rojo: bit_vector(3 downto 0);
+--signal fila1Amarillo, fila2Amarillo, fila3Amarillo, fila4Amarillo: bit_vector(3 downto 0);
+--signal fila1General, fila2General, fila3General, fila4General: bit_vector(3 downto 0);
 
 --columnas
 signal columna1Rojo, columna2Rojo, columna3Rojo, columna4Rojo: bit_vector(3 downto 0) := "0000";
@@ -116,7 +116,7 @@ begin
  limiteIzquierdoSelector  <=  "0011110000"; --0
  limiteDerechoSelector    <=  "0100100111"; --0
 
-clock50<= clk50_in;
+--clock50<= clk50_in;
 
 -- generate a 25Mhz clock
 process (clk50_in)
@@ -149,6 +149,7 @@ columna1GeneralSinTrim<=columna1General;
 columna2GeneralSinTrim<=columna2General;
 columna3GeneralSinTrim<=columna3General;
 columna4GeneralSinTrim<=columna4General;
+ledIndica<= signalLedIndicador;
 process(clk50_in)
 begin
 if(rising_edge(clk50_in)) then
@@ -158,7 +159,7 @@ if(rising_edge(clk50_in)) then
             if(columna = 4) then LedCol1<='0'; ledCol2<='0'; ledCol3<='0'; ledCol4<='1'; end if;
 				end if;
 end process;
-				ledIndica<= signalLedIndicador;
+				
 process (clk1Hert)
 begin
     if(rising_edge(clk1Hert)) then
@@ -322,33 +323,27 @@ if(columna = 1 and botonAb = '1' and (not columna1General = "1111"))then
     if(columna1GeneralSinTrim = "0001") then
         if(jugador = '1') then
             columna1Rojo(2)<='1';
-            columna1RojoSinTrim(2)<='1';
             columna1General <= "0011"; 
         else
             columna1Amarillo(2)<='1';
-            columna1AmarilloSinTrim(2)<='1';
             columna1General <= "0011"; 
         end if;
     end if;
     if(columna1GeneralSinTrim = "0011") then
         if(jugador = '1') then
             columna1Rojo(1)<='1';
-            columna1RojoSinTrim(1)<='1';
             columna1General <= "0111";
         else
             columna1Amarillo(1)<='1';
-            columna1AmarilloSinTrim(1)<='1';
             columna1General <= "0111";
         end if;
     end if;
     if(columna1GeneralSinTrim = "0111") then
         if(jugador = '1') then
             columna1Rojo(0)<='1';
-            columna1RojoSinTrim(0)<='1';
             columna1General <= "1111"; 
         else
             columna1Amarillo(0)<='1';
-            columna1RojoSinTrim(0)<='1';
             columna1General <= "1111"; 
         end if;
     end if;
