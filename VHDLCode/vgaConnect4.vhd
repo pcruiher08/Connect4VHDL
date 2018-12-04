@@ -197,7 +197,7 @@ begin
     if(rising_edge(clk1Hert))then
         --COLUMNA 1
 if(columna = 1 and botonAb = '1' and (not columna1General = "1111"))then 
-if(columna3General = "0000") then
+if(columna1General = "0000") then
     if(jugador = '1') then
         columna1Rojo<="0001";
         jugador<='0';
@@ -389,8 +389,9 @@ if(columna4General = "0111") then
         columna4General <= "1111"; 
     end if;
 end if;
-end if; 
-        end if;
+end if; end if;
+end process;
+        
 
 
 process (clk25)
