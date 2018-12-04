@@ -72,11 +72,6 @@ signal limiteSuperior, limiteInferior, limiteIzquierda,
 limiteDerecha, limiteLineaA, limiteLineaB, limiteLineaC: std_logic_vector (9 downto 0);
 signal limiteLinea1, limiteLinea2, limiteLinea3: std_logic_vector(9 downto 0);
 
---filas
---signal fila1Rojo, fila2Rojo, fila3Rojo, fila4Rojo: bit_vector(3 downto 0);
---signal fila1Amarillo, fila2Amarillo, fila3Amarillo, fila4Amarillo: bit_vector(3 downto 0);
---signal fila1General, fila2General, fila3General, fila4General: bit_vector(3 downto 0);
-
 --columnas
 signal columna1Rojo, columna2Rojo, columna3Rojo, columna4Rojo: bit_vector(3 downto 0) := "0000";
 signal columna1Amarillo, columna2Amarillo, columna3Amarillo, columna4Amarillo: bit_vector(3 downto 0) :="0000";
@@ -211,21 +206,21 @@ c1: case columna1General is
     end if;
     when "0001" => 
     if(jugador = '1') then
-        columna1Rojo(2)<='1';
+        columna1Rojo(2 downto 0)<="100";
         jugador<='0';
         columna1General <= "0011"; 
     else
-        columna1Amarillo(2)<='1';
+        columna1Amarillo(2 downto 0)<="100";
         jugador<='1';
         columna1General <= "0011"; 
     end if;
     when "0011" => 
     if(jugador = '1') then
-        columna1Rojo(1)<='1';
+        columna1Rojo(1 downto 0)<="10";
         jugador<='0';
         columna1General <= "0111"; 
     else
-        columna1Amarillo(1)<='1';
+        columna1Amarillo(1 downto 0)<="10";
         jugador<='1';
         columna1General <= "0111"; 
     end if;
@@ -239,6 +234,7 @@ c1: case columna1General is
         jugador<='1';
         columna1General <= "1111"; 
     end if;
+    when others => null;
     end case c1;
 end if; 
 --COLUMNA 2
