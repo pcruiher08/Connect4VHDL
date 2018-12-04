@@ -45,7 +45,7 @@ port(clk50_in    : in std_logic;          -----system clock i/p
         ledCol2  : out bit; 
         ledCol3  : out bit; 
         ledCol4  : out bit;
-        reset    : in  bit;
+        --reset    : in  bit;
 		ledIndica: out bit;
         led      : out bit);
 end VGA;
@@ -77,9 +77,6 @@ signal limiteLinea1, limiteLinea2, limiteLinea3: std_logic_vector(9 downto 0);
 signal columna1Rojo, columna2Rojo, columna3Rojo, columna4Rojo: bit_vector(3 downto 0) := "0000";
 signal columna1Amarillo, columna2Amarillo, columna3Amarillo, columna4Amarillo: bit_vector(3 downto 0) :="0000";
 signal columna1General, columna2General, columna3General, columna4General: bit_vector(3 downto 0):= "0000";
-signal columna1RojoSinTrim, columna2RojoSinTrim, columna3RojoSinTrim, columna4RojoSinTrim: bit_vector(3 downto 0) := "0000";
-signal columna1AmarilloSinTrim, columna2AmarilloSinTrim, columna3AmarilloSinTrim, columna4AmarilloSinTrim: bit_vector(3 downto 0):="0000";
-signal columna1GeneralSinTrim, columna2GeneralSinTrim, columna3GeneralSinTrim, columna4GeneralSinTrim: bit_vector(3 downto 0):="0000";
 
 --indices
 signal limiteInferiorSelector, limiteSuperiorSelector, limiteIzquierdoSelector, limiteDerechoSelector: std_logic_vector(9 downto 0);
@@ -93,7 +90,9 @@ signal indices: std_logic_vector(3 downto 0);
 signal ledsignal, signalLedIndicador : bit;--indicador de la frecuencia de 1hz
 --signal leeAbajo : bit;
 signal columna: integer := 1;
-signal jugador : bit:='1'; 
+signal jugador : bit:='1'; --para el estado del jugador
+
+signal redWins, yellowWins, tie, tieSignal: bit:='0';
 
 begin
 --inicializacion de las variables de la cuadricula y los limites
@@ -112,7 +111,35 @@ begin
  limiteIzquierdoSelector  <=  "0011110000"; --0
  limiteDerechoSelector    <=  "0100100111"; --0
 
---clock50<= clk50_in;
+
+process(clk50_in)
+begin
+    if(rising_edge(clk50_in)) then
+        --verticales
+        if(columna1Rojo="1111" or columna2Rojo="1111" or columna3Rojo="1111" or columna4Rojo="1111") then redWins<='1'; yellowWins<='0'; tie<='0'; end if;
+        if(columna1Amarillo="1111" or columna2Amarillo="1111" or columna3Amarillo="1111" or columna4Amarillo="1111") then yellowWins<='1'; redWins<='0'; tie<='0'; end if;
+        --horizontales
+        if(columna1Rojo(3)='1' and columna2Rojo(3)='1' and columna3Rojo(3)='1' and columna4Rojo(3)='1')then redWins<='1'; yellowWins<='0'; tie<='0'; end if;
+        if(columna1Rojo(2)='1' and columna2Rojo(2)='1' and columna3Rojo(2)='1' and columna4Rojo(2)='1')then redWins<='1'; yellowWins<='0'; tie<='0'; end if;
+        if(columna1Rojo(1)='1' and columna2Rojo(1)='1' and columna3Rojo(1)='1' and columna4Rojo(1)='1')then redWins<='1'; yellowWins<='0'; tie<='0'; end if;
+        if(columna1Rojo(0)='1' and columna2Rojo(0)='1' and columna3Rojo(0)='1' and columna4Rojo(0)='1')then redWins<='1'; yellowWins<='0'; tie<='0'; end if;
+        if(columna2Amarillo(3)='1' and columna2Amarillo(3)='1' and columna3Amarillo(3)='1' and columna4Amarillo(3)='1')then yellowWins<='1'; redWins<='0'; tie<='0'; end if;
+        if(columna2Amarillo(2)='1' and columna2Amarillo(2)='1' and columna3Amarillo(2)='1' and columna4Amarillo(2)='1')then yellowWins<='1'; redWins<='0'; tie<='0'; end if;
+        if(columna2Amarillo(1)='1' and columna2Amarillo(1)='1' and columna3Amarillo(1)='1' and columna4Amarillo(1)='1')then yellowWins<='1'; redWins<='0'; tie<='0'; end if;
+        if(columna2Amarillo(0)='1' and columna2Amarillo(0)='1' and columna3Amarillo(0)='1' and columna4Amarillo(0)='1')then yellowWins<='1'; redWins<='0'; tie<='0'; end if;
+        --diagonales
+        if(columna1Rojo(3)='1' and columna2Rojo(2)='1' and columna3Rojo(1)='1' and columna4Rojo(0)='1')then rojoWins<='1'; yellowWins<='0'; tie<='0'; end if;
+        if(columna1Rojo(0)='1' and columna2Rojo(1)='1' and columna3Rojo(2)='1' and columna4Rojo(3)='1')then rojoWins<='1'; yellowWins<='0'; tie<='0'; end if;
+        if(columna1amarillo(3)='1' and columna2amarillo(2)='1' and columna3amarillo(1)='1' and columna4amarillo(0)='1')then yellowWins<='1'; redWins<='0'; tie<='0'; end if;
+        if(columna1amarillo(0)='1' and columna2amarillo(1)='1' and columna3amarillo(2)='1' and columna4amarillo(3)='1')then yellowWins<='1'; redWins<='0'; tie<='0'; end if;
+
+        --ties
+        if(columna1General="1111" and columna2General="1111" and columna3General="1111" and columna4General="1111")then
+            tieSignal <=1;
+            end if;
+        if(tieSignal = '1' and redWin = '0' and yellowWin = '0')then tie<=1; yellowWin = '0'; redWin = '0'; end if;
+    end if;
+end process;
 
 -- generate a 25Mhz clock
 process (clk50_in)
@@ -133,18 +160,6 @@ end if;
 end process;
 --clk1Hz port map(clock50, clk1Hert);
 led <= ledsignal;
-columna1RojoSinTrim<=columna1Rojo;
-columna2RojoSinTrim<=columna2Rojo;
-columna3RojoSinTrim<=columna3Rojo;
-columna4RojoSinTrim<=columna4Rojo;
-columna1AmarilloSinTrim<=columna1Amarillo;
-columna2AmarilloSinTrim<=columna2Amarillo;
-columna3AmarilloSinTrim<=columna3Amarillo;
-columna4AmarilloSinTrim<=columna4Amarillo;
-columna1GeneralSinTrim<=columna1General;
-columna2GeneralSinTrim<=columna2General;
-columna3GeneralSinTrim<=columna3General;
-columna4GeneralSinTrim<=columna4General;
 ledIndica<= signalLedIndicador;
 process(clk50_in)
 begin
@@ -508,6 +523,13 @@ elsif columna4Rojo(3)='1' and hs <= limiteDerecha and hs >= limiteLinea3 and vs 
     red <= '1'; blue <= '0'; green <= '0';
 elsif columna4Amarillo(3)='1' and hs <= limiteDerecha and hs >= limiteLinea3 and vs <= limiteLineaA and vs >= limiteSuperior then --bloque
     red <= '1'; blue <= '0'; green <= '1';
+
+--WIN
+--RED
+
+--YELLOW
+
+--TIE
 --------------------------------------------------------------------------------
 else                     ----------blank signal display
     red <= '0' ; blue <= '0'; green <= '0' ;
