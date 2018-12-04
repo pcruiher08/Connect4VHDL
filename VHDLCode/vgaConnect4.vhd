@@ -192,11 +192,11 @@ process(clk1Hert)
 begin
     if(rising_edge(clk1Hert))then
         --COLUMNA 1
-    if(reset='1')then columna1General <= "0000"; columna1Roja<="0000"; columna1Amarillo<="0000";
-                      columna2General <= "0000"; columna2Roja<="0000"; columna2Amarillo<="0000";
-                      columna3General <= "0000"; columna3Roja<="0000"; columna3Amarillo<="0000";
-                      columna4General <= "0000"; columna4Roja<="0000"; columna4Amarillo<="0000";
-                      end if;
+    --if(reset='1')then columna1General <= "0000"; columna1Rojo<="0000"; columna1Amarillo<="0000";
+    --                  columna2General <= "0000"; columna2Rojo<="0000"; columna2Amarillo<="0000";
+    --                  columna3General <= "0000"; columna3Rojo<="0000"; columna3Amarillo<="0000";
+    --                  columna4General <= "0000"; columna4Rojo<="0000"; columna4Amarillo<="0000";
+    --                  end if;
 if(columna = 1 and botonAb = '1')then --and (not columna1General = "1111"))then 
 
 c1: case columna1General is
