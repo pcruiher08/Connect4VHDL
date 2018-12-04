@@ -423,7 +423,7 @@ if(columna = 3 and botonAb = '1' and (not columna3General = "1111"))then
             columna3General <= "0011"; 
         else
             columna3Amarillo(2)<='1';
-            jugador<='0';
+            jugador<='1';
             columna3General <= "0011"; 
         end if;
     end if;
