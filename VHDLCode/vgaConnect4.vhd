@@ -135,9 +135,9 @@ begin
 
         --ties
         if(columna1General="1111" and columna2General="1111" and columna3General="1111" and columna4General="1111")then
-            tieSignal <=1;
+            tieSignal <='1';
             end if;
-        if(tieSignal = '1' and redWins = '0' and yellowWins = '0')then tie<='1'; yellowWin <= '0'; redWin <= '0'; end if;
+        if(tieSignal = '1' and redWins = '0' and yellowWins = '0')then tie<='1'; yellowWins <= '0'; redWins <= '0'; end if;
     end if;
 end process;
 
@@ -414,7 +414,7 @@ process (clk25)
 begin
 if clk25'event and clk25 = '1' then
     --TABLERO
-
+if(redWins = '0' and tie = '0' and yellowWins = '0')then 
 if hs = limiteIzquierda and vs >= limiteSuperior and vs <= limiteInferior then ---linea izquierda
     red <= '0' ; blue <= '1'; green <= '1';
 elsif hs = limiteDerecha and vs >= limiteSuperior and vs <= limiteInferior then--linea derecha 
@@ -523,17 +523,25 @@ elsif columna4Rojo(3)='1' and hs <= limiteDerecha and hs >= limiteLinea3 and vs 
     red <= '1'; blue <= '0'; green <= '0';
 elsif columna4Amarillo(3)='1' and hs <= limiteDerecha and hs >= limiteLinea3 and vs <= limiteLineaA and vs >= limiteSuperior then --bloque
     red <= '1'; blue <= '0'; green <= '1';
-
---WIN
---RED
-
---YELLOW
-
---TIE
 --------------------------------------------------------------------------------
 else                     ----------blank signal display
     red <= '0' ; blue <= '0'; green <= '0' ;
 end if;
+
+end if;
+--WIN
+    if(redWins = '1') then 
+        red<='1'; blue<='0'; green <='0';
+    end if;
+
+    if(yellowWins = '1') then 
+        red<='1'; blue<='0'; green<='1';
+    end if;
+
+    if(tie = '1') then
+        red<='1'; blue<='1'; green='0';
+    end if;
+
 
     if (hs > "0000000000" )
     and (hs < "0001100001" ) -- 96+1   -----horizontal tracing
