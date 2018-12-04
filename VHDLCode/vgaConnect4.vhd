@@ -45,6 +45,7 @@ port(clk50_in    : in std_logic;          -----system clock i/p
         ledCol2  : out bit; 
         ledCol3  : out bit; 
         ledCol4  : out bit;
+        reset    : in  bit;
 		ledIndica: out bit;
         led      : out bit);
 end VGA;
@@ -191,7 +192,12 @@ process(clk1Hert)
 begin
     if(rising_edge(clk1Hert))then
         --COLUMNA 1
-if(columna = 1 and botonAb = '1' and (not columna1General = "1111"))then 
+    if(reset='1')then columna1General <= "0000"; columna1Roja<="0000"; columna1Amarillo<="0000";
+                      columna2General <= "0000"; columna2Roja<="0000"; columna2Amarillo<="0000";
+                      columna3General <= "0000"; columna3Roja<="0000"; columna3Amarillo<="0000";
+                      columna4General <= "0000"; columna4Roja<="0000"; columna4Amarillo<="0000";
+                      end if;
+if(columna = 1 and botonAb = '1')then --and (not columna1General = "1111"))then 
 
 c1: case columna1General is
     when "0000" =>     
@@ -206,31 +212,31 @@ c1: case columna1General is
     end if;
     when "0001" => 
     if(jugador = '1') then
-        columna1Rojo(2 downto 0)<="100";
+        columna1Rojo(1)<='1';
         jugador<='0';
         columna1General <= "0011"; 
     else
-        columna1Amarillo(2 downto 0)<="100";
+        columna1Amarillo(1)<='1';
         jugador<='1';
         columna1General <= "0011"; 
     end if;
     when "0011" => 
     if(jugador = '1') then
-        columna1Rojo(1 downto 0)<="10";
+        columna1Rojo(2)<='1';
         jugador<='0';
         columna1General <= "0111"; 
     else
-        columna1Amarillo(1 downto 0)<="10";
+        columna1Amarillo(2)<='1';
         jugador<='1';
         columna1General <= "0111"; 
     end if;
     when "0111" =>
     if(jugador = '1') then
-        columna1Rojo(0)<='1';
+        columna1Rojo(3)<='1';
         jugador<='0';
         columna1General <= "1111"; 
     else
-        columna1Amarillo(0)<='1';
+        columna1Amarillo(3)<='1';
         jugador<='1';
         columna1General <= "1111"; 
     end if;
@@ -238,7 +244,7 @@ c1: case columna1General is
     end case c1;
 end if; 
 --COLUMNA 2
-if(columna = 2 and botonAb = '1' and (not columna2General = "1111"))then 
+if(columna = 2 and botonAb = '1')then 
 if(columna2General = "0000") then
     if(jugador = '1') then
         columna2Rojo<="0001";
@@ -252,40 +258,40 @@ if(columna2General = "0000") then
 end if;
 if(columna2General = "0001") then
     if(jugador = '1') then
-        columna2Rojo(2)<='1';
+        columna2Rojo(1)<='1';
         jugador<='0';
         columna2General <= "0011"; 
     else
-        columna2Amarillo(2)<='1';
+        columna2Amarillo(1)<='1';
         jugador<='1';
         columna2General <= "0011"; 
     end if;
 end if;
 if(columna2General = "0011") then
     if(jugador = '1') then
-        columna2Rojo(1)<='1';
+        columna2Rojo(2)<='1';
         jugador<='0';
         columna2General <= "0111"; 
     else
-        columna2Amarillo(1)<='1';
+        columna2Amarillo(2)<='1';
         jugador<='1';
         columna2General <= "0111"; 
     end if;
 end if;
 if(columna2General = "0111") then
     if(jugador = '1') then
-        columna2Rojo(0)<='1';
+        columna2Rojo(3)<='1';
         jugador<='0';
         columna2General <= "1111"; 
     else
-        columna2Amarillo(0)<='1';
+        columna2Amarillo(3)<='1';
         jugador<='1';
         columna2General <= "1111"; 
     end if;
 end if;
 end if; 
 --COLUMNA 3
-if(columna = 3 and botonAb = '1' and (not columna3General = "1111"))then 
+if(columna = 3 and botonAb = '1')then 
 if(columna3General = "0000") then
     if(jugador = '1') then
         columna3Rojo<="0001";
@@ -299,40 +305,40 @@ if(columna3General = "0000") then
 end if;
 if(columna3General = "0001") then
     if(jugador = '1') then
-        columna3Rojo(2)<='1';
+        columna3Rojo(1)<='1';
         jugador<='0';
         columna3General <= "0011"; 
     else
-        columna3Amarillo(2)<='1';
+        columna3Amarillo(1)<='1';
         jugador<='1';
         columna3General <= "0011"; 
     end if;
 end if;
 if(columna3General = "0011") then
     if(jugador = '1') then
-        columna3Rojo(1)<='1';
+        columna3Rojo(2)<='1';
         jugador<='0';
         columna3General <= "0111"; 
     else
-        columna3Amarillo(1)<='1';
+        columna3Amarillo(2)<='1';
         jugador<='1';
         columna3General <= "0111"; 
     end if;
 end if;
 if(columna3General = "0111") then
     if(jugador = '1') then
-        columna3Rojo(0)<='1';
+        columna3Rojo(3)<='1';
         jugador<='0';
         columna3General <= "1111"; 
     else
-        columna3Amarillo(0)<='1';
+        columna3Amarillo(3)<='1';
         jugador<='1';
         columna3General <= "1111"; 
     end if;
 end if;
 end if; 
 --COLUMNA 4
-if(columna = 4 and botonAb = '1' and (not columna4General = "1111"))then 
+if(columna = 4 and botonAb = '1')then 
 if(columna4General = "0000") then
     if(jugador = '1') then
         columna4Rojo<="0001";
@@ -347,12 +353,12 @@ end if;
 if(columna4General = "0001") then
     if(jugador = '1') then
         --columna4Rojo(2)<='1';
-        columna4Rojo(2)<='1';
+        columna4Rojo(1)<='1';
         jugador<='0';
         columna4General <= "0011"; 
     else
         --columna4Amarillo(2)<='1';
-        columna4Amarillo(2)<='1';
+        columna4Amarillo(1)<='1';
         --"----" , "--1-", "001-"
         jugador<='1';
         columna4General <= "0011"; 
@@ -361,12 +367,12 @@ end if;
 if(columna4General = "0011") then
     if(jugador = '1') then
         --columna4Rojo(1)<='1';
-        columna4Rojo(1)<='1';
+        columna4Rojo(2)<='1';
         jugador<='0';
         columna4General <= "0111"; 
     else
         --columna4Amarillo(1)<='1';
-        columna4Amarillo(1)<='1';
+        columna4Amarillo(2)<='1';
         jugador<='1';
         columna4General <= "0111"; 
     end if;
@@ -374,15 +380,15 @@ end if;
 if(columna4General = "0111") then
     if(jugador = '1') then
         --columna4Rojo(0)<='1';
-        columna4Rojo(0)<='1';
+        columna4Rojo(3)<='1';
         jugador<='0';
         columna4General <= "1111"; 
     else
         --columna4Amarillo(0)<='1';
-        columna4Amarillo(0)<='1';
+        columna4Amarillo(3)<='1';
         jugador<='1';
         columna4General <= "1111"; 
-    end if;
+    end if;	
 end if;
 end if; end if;
 end process;
