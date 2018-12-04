@@ -45,7 +45,7 @@ port(clk50_in    : in std_logic;          -----system clock i/p
         ledCol2  : out bit; 
         ledCol3  : out bit; 
         ledCol4  : out bit;
-        --reset    : in  bit;
+        buzzer   : out  bit;
 		ledIndica: out bit;
         led      : out bit);
 end VGA;
@@ -206,6 +206,7 @@ end process;
 process(clk1Hert)
 begin
     if(rising_edge(clk1Hert))then
+if(redWins = '0' and tie = '0' and yellowWins = '0')then 
         --COLUMNA 1
     --if(reset='1')then columna1General <= "0000"; columna1Rojo<="0000"; columna1Amarillo<="0000";
     --                  columna2General <= "0000"; columna2Rojo<="0000"; columna2Amarillo<="0000";
@@ -406,42 +407,17 @@ if(columna4General = "0111") then
     end if;	
 end if;
 end if; end if;
+    end if;
 end process;
         
-process (clk25)
+process (clk1Hert)
 begin
     --WIN
-    if(redWins = '1') then 
-        --red<='1'; blue<='0'; green <='0';
-        columna1Amarillo<="0000";
-        columna2Amarillo<="0000";
-        columna3Amarillo<="0000";
-        columna4Amarillo<="0000";
+    if(redWins = '1' or yellowWins ='1' or tie='1') then 
+        buzzer<='1';
     end if;
-
-    if(yellowWins = '1') then 
-        --red<='1'; blue<='0'; green<='1';
-        columna1Rojo<="0000";
-        columna2Rojo<="0000";
-        columna3Rojo<="0000";
-        columna4Rojo<="0000";
-    end if;
-
-    if(tie = '1') then
-        --red<='1'; blue<='1'; green<='0'; restart
-        columna1Amarillo<="0000";
-        columna2Amarillo<="0000";
-        columna3Amarillo<="0000";
-        columna4Amarillo<="0000";
-        columna1Rojo<="0000";
-        columna2Rojo<="0000";
-        columna3Rojo<="0000";
-        columna4Rojo<="0000";
-        columna1General<="0000";
-        columna2General<="0000";
-        columna3General<="0000";
-        columna4General<="0000";
-        jugador<='1';
+    if(restart='1')then
+        redWins<='0'; yellowWins'0'; tie<='0'; 
     end if;
 end process;
 
@@ -449,7 +425,7 @@ process (clk25)
 begin
 if clk25'event and clk25 = '1' then
     --TABLERO
-if(redWins = '0' and tie = '0' and yellowWins = '0')then 
+
 if hs = limiteIzquierda and vs >= limiteSuperior and vs <= limiteInferior then ---linea izquierda
     red <= '0' ; blue <= '1'; green <= '1';
 elsif hs = limiteDerecha and vs >= limiteSuperior and vs <= limiteInferior then--linea derecha 
@@ -563,7 +539,7 @@ else                     ----------blank signal display
     red <= '0' ; blue <= '0'; green <= '0' ;
 end if;
 
-end if;
+
 
 
 
