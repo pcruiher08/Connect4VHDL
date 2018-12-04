@@ -47,7 +47,7 @@ port(clk50_in    : in std_logic;          -----system clock i/p
         ledCol4  : out bit;
         buzzer   : out  bit;
 		ledIndica: out bit;
-		--reset : in bit:='0';
+		reset : in bit:='0';
         led      : out bit);
 end VGA;
 
@@ -414,6 +414,20 @@ end process;
 process (clk1Hert)
 begin
     --WIN
+    if(reset= '1') then yellowWins <='0'; redWins <= '1'; tie<='1'; buzzer<='0'; 
+    columna1Rojo<="0000";
+    columna2Rojo<="0000";
+    columna3Rojo<="0000";
+    columna4Rojo<="0000";
+    columna1Amarillo<="0000";
+    columna2Amarillo<="0000";
+    columna3Amarillo<="0000";
+    columna4Amarillo<="0000";
+    columna1General<="0000";
+    columna2General<="0000";
+    columna3General<="0000";
+    columna4General<="0000";
+    end if;
     if(redWins = '1' or yellowWins ='1' or tie='1') then 
         buzzer<='1';else buzzer<='0';
     end if;
